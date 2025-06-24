@@ -1,0 +1,111 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1333010933666115791
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6124469941247860010}
+  - component: {fileID: 1374514819341874614}
+  m_Layer: 0
+  m_Name: Combat Library
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6124469941247860010
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1333010933666115791}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1165223086832268549}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1374514819341874614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1333010933666115791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1151621557a06a488a5d61cb1844ff5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StageLibrary:
+  - {fileID: 5791851567751169288}
+--- !u!1 &8993793749275169707
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1165223086832268549}
+  - component: {fileID: 5791851567751169288}
+  m_Layer: 0
+  m_Name: Stage 0
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1165223086832268549
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8993793749275169707}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6124469941247860010}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5791851567751169288
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8993793749275169707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d034a00d1e80bf4ebe7dc91f5d41103, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stages: 4
+  MobSprite:
+  - {fileID: 21300000, guid: ecc238756316462418732afa4e8d4787, type: 3}
+  - {fileID: 21300000, guid: 30ee6573d5dd3514d94843386b6bafd8, type: 3}
+  - {fileID: 21300000, guid: f85e554051645074684c65e3a2229c0d, type: 3}
+  - {fileID: 21300000, guid: b2685aa417f54bb48bffe79d9d269309, type: 3}
+  - {fileID: 21300000, guid: c71d1e1f1816dab4f9c3145d57820951, type: 3}
+  MobHealth: 390000004d0000006d00000086000000
+  minXP: 01000000010000000100000002000000
+  maxXP: 02000000020000000300000003000000
+  minGold: 00000000010000000300000001000000
+  maxGold: 03000000040000000400000006000000
+  BossSprite: {fileID: 21300000, guid: 045b80be1c09ea149849eb1df2feb13b, type: 3}
+  BossHealth: 1600
+  BossAttackRate: 0
+  BossAttackDamage: 1100000013000000
+  xpDropRange: 2200000026000000
+  goldDropRange: 2f00000040000000
