@@ -17,6 +17,9 @@ public class Hero : MonoBehaviour
     [Header("UI")]
     public Image AttackBarFill;
 
+    [Header("Perks")]
+    public int skillPoints;
+
     public void Update()
     {
         attackCharge += attackRate * Time.deltaTime * PlayerScript.speedIncrease;
@@ -28,7 +31,7 @@ public class Hero : MonoBehaviour
     void Attack()
     {
         attackCharge -= 1f;
-        damage = Random.Range(attackDamage[0] + PlayerScript.baseDamageBonus, attackDamage[1] + PlayerScript.baseDamageBonus);
+        damage = Random.Range(attackDamage[0] + PlayerScript.minDamageBonus, attackDamage[1] + PlayerScript.maxDamageBonus);
         if (critChance >= Random.Range(0f, 1f))
         {
             damage *= critDamage;

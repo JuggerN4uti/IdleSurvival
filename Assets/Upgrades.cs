@@ -27,12 +27,13 @@ public class Upgrades : MonoBehaviour
         {
             case 0:
                 //PlayerScript.damageIncrease += 0.01f;
-                PlayerScript.baseDamageBonus += 1f;
-                UpgradeEffectText[id].text = "+" + upgradesBought[id].ToString("0");
+                PlayerScript.minDamageBonus += 0.9f;
+                PlayerScript.maxDamageBonus += 1.4f;
+                UpgradeEffectText[id].text = "+" + PlayerScript.minDamageBonus.ToString("0.0") + "-" + PlayerScript.maxDamageBonus.ToString("0.0");
                 break;
             case 1:
-                PlayerScript.speedIncrease += 0.01f;
-                UpgradeEffectText[id].text = "+" + upgradesBought[id].ToString("0") + "%";
+                PlayerScript.speedIncrease += 0.02f;
+                UpgradeEffectText[id].text = "+" + (upgradesBought[id] * 2).ToString("0") + "%";
                 break;
             case 2:
                 PlayerScript.GainSP(1);

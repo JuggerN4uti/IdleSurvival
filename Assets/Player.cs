@@ -7,14 +7,15 @@ public class Player : MonoBehaviour
 {
     [Header("Scripts")]
     public Upgrades UpgradesScript;
+    public Perks PerksScript;
     public Combat CombatScript;
+    public Hero[] HeroScript;
 
     [Header("Stats")]
     public int level;
     public int experience, expRequired, gold, skillPoints, totalSkillPoints;
     public int maxHealth, health;
-    public float baseDamageBonus, damageIncrease, speedIncrease;
-    public bool upgradeScreenOpen;
+    public float minDamageBonus, maxDamageBonus, damageIncrease, speedIncrease, goldIncrease;
 
     [Header("UI")]
     public Image ExperienceBarFill;
@@ -23,6 +24,10 @@ public class Player : MonoBehaviour
     public GameObject DisplayObject;
     public Transform[] Origin;
     private TextPop Displayed;
+
+    [Header("Windowns")]
+    public GameObject[] WindowObject;
+    public bool[] windowOpened;
 
     [Header("Bonus")]
     public bool bonusActive;
@@ -60,11 +65,12 @@ public class Player : MonoBehaviour
 
     public void GainGold(int amount)
     {
+        amount = Mathf.RoundToInt(amount * goldIncrease);
         gold += amount;
         if (amount > 0)
             Display(amount, 1);
         GoldText.text = gold.ToString("0");
-        if (upgradeScreenOpen)
+        if (windowOpened[0])
             UpgradesScript.Check();
     }
 
@@ -97,10 +103,19 @@ public class Player : MonoBehaviour
     public void GainSP(int amount)
     {
         skillPoints += amount;
+        //HeroScript[0].skillPoints += amount;
         totalSkillPoints += amount;
+        if (windowOpened[1])
+            PerksScript.Check();
     }
 
-    void GainHP(int amount)
+    public void SpendSP(int amount)
+    {
+        skillPoints -= amount;
+        //HeroScript[0].skillPoints += amount;
+    }
+
+    public void GainHP(int amount)
     {
         maxHealth += amount;
         health += amount;
@@ -111,7 +126,7 @@ public class Player : MonoBehaviour
 
     void CalculateExpReq()
     {
-        expRequired = level * (level + 1) * 40 + level * 20;
+        expRequired = level * (level + 1) * 30 + level * 40;
     }
 
     public void TakeDamage(int amount)
@@ -139,5 +154,29 @@ public class Player : MonoBehaviour
 
         HealthBarFill.fillAmount = (health * 1f) / (maxHealth * 1f);
         HealthText.text = health.ToString("0") + "/" + maxHealth.ToString("0");
+    }
+
+    public void SelectScreen(int which)
+    {
+        if (windowOpened[which])
+        {
+            windowOpened[which] = false;
+            WindowObject[which].SetActive(false);
+        }
+        else
+        {
+            for (int i = 0; i < WindowObject.Length; i++)
+            {
+                windowOpened[i] = false;
+                WindowObject[i].SetActive(false);
+            }
+            windowOpened[which] = true;
+            WindowObject[which].SetActive(true);
+
+            if (which == 0)
+                UpgradesScript.Check();
+            if (which == 1)
+                PerksScript.Check();
+        }
     }
 }

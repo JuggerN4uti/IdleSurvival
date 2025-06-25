@@ -145,7 +145,7 @@ public class Combat : MonoBehaviour
     public void Fallen()
     {
         damage = bossHealth - health;
-        bossHealth -= Mathf.RoundToInt(damage * 0.03f + (maxHealth - health) * 0.01f);
+        bossHealth -= Mathf.RoundToInt(damage * 0.04f + (maxHealth - health) * 0.008f);
         bossFight = false;
         SetMobile();
     }
