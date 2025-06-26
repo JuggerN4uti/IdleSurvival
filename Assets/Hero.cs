@@ -8,11 +8,14 @@ public class Hero : MonoBehaviour
     [Header("Scripts")]
     public Player PlayerScript;
     public Combat CombatScript;
+    public Mobile[] MobileScript;
 
     [Header("Stats")]
+    public int focused;
     public float[] attackDamage;
     public float attackRate, attackCharge, critChance, critDamage;
     float damage;
+    bool crited;
 
     [Header("UI")]
     public Image AttackBarFill;
@@ -35,8 +38,12 @@ public class Hero : MonoBehaviour
         if (critChance >= Random.Range(0f, 1f))
         {
             damage *= critDamage;
-            CombatScript.DamageMob(damage, true);
+            crited = true;
         }
-        else CombatScript.DamageMob(damage, false);
+        else crited = false;
+
+        if (CombatScript.bossFight)
+            CombatScript.DamageMob(damage, crited);
+        else MobileScript[focused].DamageMob(damage, crited);
     }
 }

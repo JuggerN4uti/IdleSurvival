@@ -7,10 +7,11 @@ public class Combat : MonoBehaviour
 {
     [Header("Scripts")]
     public Player PlayerScript;
+    public Mobile[] MobileScript;
 
     [Header("Stage")]
     public CombatLibrary CLib;
-    public int stageID, wave, slained;
+    public int stageID, wave, slained, killsRequired;
     public bool bossReady, bossFight;
 
     [Header("Stats")]
@@ -24,37 +25,17 @@ public class Combat : MonoBehaviour
     public Image UnitImage;
     public Image HealthBarFill, CatchUpFill;
     public TMPro.TextMeshProUGUI HealthText, SlainedText;
-    public GameObject DisplayObject, FightBossObject;
+    public GameObject DisplayObject, FightBossObject, MobsScreen, BossScreen;
     public Rigidbody2D Body;
     public Transform Origin;
     private TextPop Displayed;
     public Button FightBossButton;
 
-    void Start()
-    {
-        SetMobile();
-    }
-
-    void SetMobile()
-    {
-        UnitImage.sprite = CLib.StageLibrary[stageID].MobSprite[Random.Range(0, CLib.StageLibrary[stageID].MobSprite.Length)];
-        maxHealth = CLib.StageLibrary[stageID].MobHealth[wave];
-        health = maxHealth;
-        HealthBarFill.fillAmount = 1f;
-        catchUp = maxHealth;
-        CatchUpFill.fillAmount = 1f;
-        HealthText.text = health.ToString("0") + "/" + maxHealth.ToString("0");
-        expRange[0] = CLib.StageLibrary[stageID].minXP[wave];
-        expRange[1] = CLib.StageLibrary[stageID].maxXP[wave];
-        goldRange[0] = CLib.StageLibrary[stageID].minGold[wave];
-        goldRange[1] = CLib.StageLibrary[stageID].maxGold[wave];
-    }
-
     void Update()
     {
         if (catchUp > health)
         {
-            catchUp -= maxHealth * 0.16f * Time.deltaTime;
+            catchUp -= maxHealth * 0.05f * Time.deltaTime;
             CatchUpFill.fillAmount = catchUp / (maxHealth * 1f);
         }
     }
@@ -66,7 +47,7 @@ public class Combat : MonoBehaviour
         health -= damage;
         Display(damage, crit);
         if (health <= 0f)
-            Death();
+            BossDefeated();
         else
         {
             HealthBarFill.fillAmount = (health * 1f) / (maxHealth * 1f);
@@ -84,54 +65,61 @@ public class Combat : MonoBehaviour
         display_body.AddForce(Origin.up * Random.Range(0.66f, 1.1f), ForceMode2D.Impulse);
     }
 
-    void Death()
+    public void MobSlained()
     {
-        PlayerScript.GainXP(Random.Range(expRange[0], expRange[1] + 1));
-        PlayerScript.GainGold(Random.Range(goldRange[0], goldRange[1] + 1));
         if (!bossReady)
         {
             slained++;
-            SlainedText.text = slained.ToString("0") + "/10";
+            SlainedText.text = slained.ToString("0") + "/" + killsRequired.ToString("0");
         }
-        if (slained >= 10)
-            NextWave();
-        else SetMobile();
+        if (slained >= killsRequired)
+            BossReached();
     }
 
-    void NextWave()
+    public void BossDefeated()
     {
-        slained -= 10;
-        SlainedText.text = slained.ToString("0") + "/10";
-        if (wave == CLib.StageLibrary[stageID].stages - 1)
-        {
-            bossReady = true;
-            FightBossObject.SetActive(true);
-            bossHealth = CLib.StageLibrary[stageID].BossHealth;
-            SetBoss();
-        }
-        else
-        {
-            wave++;
-            SetMobile();
-        }
+        bossFight = false;
+        FightBossObject.SetActive(false);
+        MobsScreen.SetActive(true);
+        BossScreen.SetActive(false);
+        PlayerScript.GainXP(CLib.StageLibrary[stageID].BossXp);
+        PlayerScript.GainGold(CLib.StageLibrary[stageID].BossGold);
     }
 
-    public void SetBoss()
+    void BossReached()
+    {
+        slained = 0;
+        SlainedText.text = "";
+        SetBoss();
+        bossReady = true;
+        FightBossObject.SetActive(true);
+    }
+
+    void SetBoss()
+    {
+        bossHealth = CLib.StageLibrary[stageID].BossHealth;
+        UnitImage.sprite = CLib.StageLibrary[stageID].BossSprite;
+        maxHealth = CLib.StageLibrary[stageID].BossHealth;
+        health = bossHealth;
+        HealthBarFill.fillAmount = 1f;
+        catchUp = health;
+        CatchUpFill.fillAmount = 1f;
+        HealthText.text = health.ToString("0") + "/" + maxHealth.ToString("0");
+    }
+
+    public void FightBoss()
     {
         bossFight = true;
         FightBossButton.interactable = false;
-        UnitImage.sprite = CLib.StageLibrary[stageID].BossSprite;
         maxHealth = CLib.StageLibrary[stageID].BossHealth;
         health = bossHealth;
         HealthBarFill.fillAmount = (health * 1f) / (maxHealth * 1f);
         catchUp = health;
         CatchUpFill.fillAmount = catchUp / (maxHealth * 1f);
         HealthText.text = health.ToString("0") + "/" + maxHealth.ToString("0");
-        expRange[0] = CLib.StageLibrary[stageID].xpDropRange[0];
-        expRange[1] = CLib.StageLibrary[stageID].xpDropRange[1];
-        goldRange[0] = CLib.StageLibrary[stageID].goldDropRange[0];
-        goldRange[1] = CLib.StageLibrary[stageID].goldDropRange[1];
-        Invoke("Attack", 2.5f);
+        Invoke("Attack", 2.6f);
+        MobsScreen.SetActive(false);
+        BossScreen.SetActive(true);
     }
 
     void Attack()
@@ -139,7 +127,7 @@ public class Combat : MonoBehaviour
         damage = Random.Range(CLib.StageLibrary[stageID].BossAttackDamage[0], CLib.StageLibrary[stageID].BossAttackDamage[1] + 1);
         PlayerScript.TakeDamage(damage);
         if (bossFight)
-            Invoke("Attack", 2.5f);
+            Invoke("Attack", 2.6f);
     }
 
     public void Fallen()
@@ -147,6 +135,7 @@ public class Combat : MonoBehaviour
         damage = bossHealth - health;
         bossHealth -= Mathf.RoundToInt(damage * 0.04f + (maxHealth - health) * 0.008f);
         bossFight = false;
-        SetMobile();
+        MobsScreen.SetActive(true);
+        BossScreen.SetActive(false);
     }
 }

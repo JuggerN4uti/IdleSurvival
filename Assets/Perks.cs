@@ -33,7 +33,7 @@ public class Perks : MonoBehaviour
                 break;
             case 2:
                 PlayerScript.goldIncrease += 0.02f;
-                PerkEffectText[id].text = "+" + PlayerScript.goldIncrease.ToString("0") + "%";
+                PerkEffectText[id].text = "+" + (perksBought[id] * 2).ToString("0") + "%";
                 break;
         }
 

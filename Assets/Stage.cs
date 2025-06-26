@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class Stage : MonoBehaviour
 {
-    [Header("Waves")]
-    public int stages;
-    public Sprite[] MobSprite;
-    public int[] MobHealth, minXP, maxXP, minGold, maxGold;
+    [Header("Mob")]
+    public Sprite MobSprite;
+    public int MobHealth;
+    public int[] Xp, Gold;
 
     [Header("Boss")]
     public Sprite BossSprite;
     public int BossHealth;
     public float BossAttackRate;
-    public int[] BossAttackDamage, xpDropRange, goldDropRange;
+    public int[] BossAttackDamage;
+    public int BossXp, BossGold;
 }

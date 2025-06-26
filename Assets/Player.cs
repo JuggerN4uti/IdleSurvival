@@ -14,7 +14,7 @@ public class Player : MonoBehaviour
     [Header("Stats")]
     public int level;
     public int experience, expRequired, gold, skillPoints, totalSkillPoints;
-    public int maxHealth, health;
+    public int maxHealth, health, regeneration;
     public float minDamageBonus, maxDamageBonus, damageIncrease, speedIncrease, goldIncrease;
 
     [Header("UI")]
@@ -49,7 +49,7 @@ public class Player : MonoBehaviour
     void Regen()
     {
         //if (CombatScript.)
-        RestoreHealth(1);
+        RestoreHealth(regeneration);
         Invoke("Regen", 0.8f);
     }
 
@@ -97,6 +97,10 @@ public class Player : MonoBehaviour
         LevelText.text = level.ToString("0");
         GainSP(1);
         GainHP(10);
+        minDamageBonus += 0.1f + level * 0.01f;
+        maxDamageBonus += 0.2f + level * 0.01f;
+        if (level % 4 == 0)
+            regeneration++;
         CalculateExpReq();
     }
 
@@ -148,7 +152,7 @@ public class Player : MonoBehaviour
             health = maxHealth;
         if (!CombatScript.bossFight)
         {
-            if (health * 10 > maxHealth * 7)
+            if (health * 4 > maxHealth * 3)
                 CombatScript.FightBossButton.interactable = true;
         }
 
