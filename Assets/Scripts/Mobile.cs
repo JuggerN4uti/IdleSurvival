@@ -15,7 +15,8 @@ public class Mobile : MonoBehaviour
     public int maxHealth;
     public int health;
     public int[] expRange, goldRange;
-    public float catchUp;
+    public float catchUp, fading;
+    public bool alive;
     int damage;
 
     [Header("UI")]
@@ -39,6 +40,11 @@ public class Mobile : MonoBehaviour
             catchUp -= maxHealth * 0.15f * Time.deltaTime;
             CatchUpFill.fillAmount = catchUp / (maxHealth * 1f);
         }
+        if (!alive)
+        {
+            fading -= 1.2f * Time.deltaTime;
+            UnitImage.color = new Color(fading, fading, fading, fading);
+        }
     }
 
     void SetMobile()
@@ -58,6 +64,9 @@ public class Mobile : MonoBehaviour
 
     void ResetMobile()
     {
+        alive = true;
+        fading = 1f;
+        UnitImage.color = new Color(fading, fading, fading, fading);
         health = maxHealth;
         HealthBarFill.fillAmount = 1f;
         catchUp = maxHealth;
@@ -92,10 +101,14 @@ public class Mobile : MonoBehaviour
 
     void Death()
     {
+        alive = false;
         PlayerScript.GainXP(Random.Range(expRange[0], expRange[1] + 1));
         PlayerScript.GainGold(Random.Range(goldRange[0], goldRange[1] + 1));
 
+        HealthBarFill.fillAmount = 0f;
+        HealthText.text = "0/" + maxHealth.ToString("0");
+
         CombatScript.MobSlained();
-        ResetMobile();
+        Invoke("ResetMobile", 0.75f);
     }
 }

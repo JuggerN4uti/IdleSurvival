@@ -44,6 +44,19 @@ public class Hero : MonoBehaviour
 
         if (CombatScript.bossFight)
             CombatScript.DamageMob(damage, crited);
-        else MobileScript[focused].DamageMob(damage, crited);
+        else
+        {
+            MobileScript[focused].DamageMob(damage, crited);
+            if (!MobileScript[focused].alive)
+                ChangeFocus();
+        }
+    }
+
+    void ChangeFocus()
+    {
+        do
+        {
+            focused = Random.Range(0, 5);
+        } while (!MobileScript[focused].alive);
     }
 }

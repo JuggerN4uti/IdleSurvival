@@ -627,6 +627,8 @@ MonoBehaviour:
   expRange: 0000000000000000
   goldRange: 0000000000000000
   catchUp: 0
+  fading: 1
+  alive: 1
   UnitImage: {fileID: 151127218}
   HealthBarFill: {fileID: 73525145}
   CatchUpFill: {fileID: 1739012945}
@@ -2197,6 +2199,8 @@ MonoBehaviour:
   expRange: 0000000000000000
   goldRange: 0000000000000000
   catchUp: 0
+  fading: 1
+  alive: 1
   UnitImage: {fileID: 665358769}
   HealthBarFill: {fileID: 1295046125}
   CatchUpFill: {fileID: 672876885}
@@ -3523,6 +3527,8 @@ MonoBehaviour:
   expRange: 0000000000000000
   goldRange: 0000000000000000
   catchUp: 0
+  fading: 1
+  alive: 1
   UnitImage: {fileID: 966878935}
   HealthBarFill: {fileID: 1728701163}
   CatchUpFill: {fileID: 2125966804}
@@ -4587,7 +4593,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 5, y: 175}
+  m_AnchoredPosition: {x: 5, y: -20}
   m_SizeDelta: {x: 40, y: 40}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1236706793
@@ -6396,6 +6402,8 @@ MonoBehaviour:
   expRange: 0000000000000000
   goldRange: 0000000000000000
   catchUp: 0
+  fading: 1
+  alive: 1
   UnitImage: {fileID: 1716544473}
   HealthBarFill: {fileID: 1225693042}
   CatchUpFill: {fileID: 680654459}
@@ -6861,7 +6869,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 5, y: 220}
+  m_AnchoredPosition: {x: 5, y: 20}
   m_SizeDelta: {x: 40, y: 40}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1755949418
@@ -8103,6 +8111,8 @@ MonoBehaviour:
   expRange: 0000000000000000
   goldRange: 0000000000000000
   catchUp: 0
+  fading: 1
+  alive: 1
   UnitImage: {fileID: 1941409323}
   HealthBarFill: {fileID: 1437227536}
   CatchUpFill: {fileID: 1737439640}
@@ -8565,7 +8575,7 @@ MonoBehaviour:
   totalSkillPoints: 0
   maxHealth: 100
   health: 100
-  regeneration: 0
+  regeneration: 1
   minDamageBonus: 0
   maxDamageBonus: 0
   damageIncrease: 1
@@ -8585,9 +8595,9 @@ MonoBehaviour:
   - {fileID: 1679672186}
   - {fileID: 1446469356}
   windowOpened: 0000
-  bonusActive: 1
-  bonusXP: 39
-  bonusGold: 178
+  bonusActive: 0
+  bonusXP: 71
+  bonusGold: 188
 --- !u!4 &1976916624
 Transform:
   m_ObjectHideFlags: 0
