@@ -11,6 +11,11 @@ public class Player : MonoBehaviour
     public Combat CombatScript;
     public Hero[] HeroScript;
 
+    [Header("Task")]
+    public int island;
+    public int task; // 0 - combat, 1 - woodcutting
+    public GameObject[] TaskScreens;
+
     [Header("Stats")]
     public int level;
     public int experience, expRequired, gold, skillPoints, totalSkillPoints;
@@ -35,7 +40,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        CalculateExpReq();
+        expRequired = CalculateExpReq(level);
         ExperienceBarFill.fillAmount = (experience * 1f) / (expRequired * 1f);
         ExperienceText.text = experience.ToString("0") + "/" + expRequired.ToString("0");
         Invoke("Regen", 0.8f);
@@ -101,7 +106,7 @@ public class Player : MonoBehaviour
         maxDamageBonus += 0.2f + level * 0.01f;
         if (level % 4 == 0)
             regeneration++;
-        CalculateExpReq();
+        expRequired = CalculateExpReq(level);
     }
 
     public void GainSP(int amount)
@@ -128,9 +133,9 @@ public class Player : MonoBehaviour
         HealthText.text = health.ToString("0") + "/" + maxHealth.ToString("0");
     }
 
-    void CalculateExpReq()
+    public int CalculateExpReq(int level)
     {
-        expRequired = level * (level + 1) * 30 + level * 40;
+        return level * (level + 1) * 30 + level * 40;
     }
 
     public void TakeDamage(int amount)
@@ -181,6 +186,25 @@ public class Player : MonoBehaviour
                 UpgradesScript.Check();
             if (which == 1)
                 PerksScript.Check();
+        }
+    }
+
+    public void ChangeTask(int what)
+    {
+        task = what;
+
+        for (int i = 0; i < TaskScreens.Length; i++)
+        {
+            TaskScreens[i].SetActive(false);
+        }
+        TaskScreens[task].SetActive(true);
+
+        switch (task)
+        {
+            case 0:
+                break;
+            case 1:
+                break;
         }
     }
 }

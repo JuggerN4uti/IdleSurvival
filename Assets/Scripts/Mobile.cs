@@ -77,6 +77,7 @@ public class Mobile : MonoBehaviour
     public void DamageMob(float amount, bool crit = false)
     {
         amount *= PlayerScript.damageIncrease;
+        PlayerScript.GainGold(Mathf.RoundToInt(amount * 0.005f));
         damage = Mathf.RoundToInt(amount);
         health -= damage;
         Display(damage, crit);

@@ -25,10 +25,13 @@ public class Hero : MonoBehaviour
 
     public void Update()
     {
-        attackCharge += attackRate * Time.deltaTime * PlayerScript.speedIncrease;
-        if (attackCharge >= 1f)
-            Attack();
-        AttackBarFill.fillAmount = attackCharge / 1f;
+        if (PlayerScript.task == 0)
+        {
+            attackCharge += attackRate * Time.deltaTime * PlayerScript.speedIncrease;
+            if (attackCharge >= 1f)
+                Attack();
+            AttackBarFill.fillAmount = attackCharge / 1f;
+        }
     }
 
     void Attack()

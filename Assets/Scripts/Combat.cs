@@ -43,7 +43,7 @@ public class Combat : MonoBehaviour
     public void DamageMob(float amount, bool crit = false)
     {
         amount *= PlayerScript.damageIncrease;
-        PlayerScript.GainGold(Mathf.RoundToInt(amount * 0.01f));
+        PlayerScript.GainGold(Mathf.RoundToInt(amount * 0.015f));
         damage = Mathf.RoundToInt(amount);
         health -= damage;
         Display(damage, crit);
@@ -125,10 +125,13 @@ public class Combat : MonoBehaviour
 
     void Attack()
     {
-        damage = Random.Range(CLib.StageLibrary[stageID].BossAttackDamage[0], CLib.StageLibrary[stageID].BossAttackDamage[1] + 1);
-        PlayerScript.TakeDamage(damage);
-        if (bossFight)
-            Invoke("Attack", 2.6f);
+        if (PlayerScript.task == 0)
+        {
+            damage = Random.Range(CLib.StageLibrary[stageID].BossAttackDamage[0], CLib.StageLibrary[stageID].BossAttackDamage[1] + 1);
+            PlayerScript.TakeDamage(damage);
+            if (bossFight)
+                Invoke("Attack", 2.6f);
+        }
     }
 
     public void Fallen()
