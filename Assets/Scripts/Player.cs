@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class Player : MonoBehaviour
 {
     [Header("Scripts")]
+    public Storage StorageScript;
     public Upgrades UpgradesScript;
     public Perks PerksScript;
     public Combat CombatScript;

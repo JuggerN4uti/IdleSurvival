@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TextPop : MonoBehaviour
 {
     public TMPro.TextMeshProUGUI DisplayedText;
+    public Image IconImage;
     public float fade, fadeSpeed;
     public float[] colors;
 
@@ -20,6 +22,12 @@ public class TextPop : MonoBehaviour
         if (crit)
             DisplayedText.text = amount.ToString("0") + "!";
         else DisplayedText.text =amount.ToString("0");
+    }
+
+    public void SetItemText(int amount, Sprite itemSprite)
+    {
+        DisplayedText.text = "+" + amount.ToString("0");
+        IconImage.sprite = itemSprite;
     }
 
     void Update()

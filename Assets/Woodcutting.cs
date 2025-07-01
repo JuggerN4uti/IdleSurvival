@@ -54,8 +54,10 @@ public class Woodcutting : MonoBehaviour
     void TreeCut()
     {
         durability += 8f;
-        GainXP(Random.Range(2, 4));
+        GainXP(Random.Range(3, 5));
         DropWood();
+        if (Random.Range(0f, 100f + 1f * level) < 25f + 1f * level)
+            Invoke("DropApple", 0.75f);
     }
 
     void GainXP(int xp)
@@ -92,6 +94,14 @@ public class Woodcutting : MonoBehaviour
 
     void DropWood()
     {
+        PlayerScript.StorageScript.CollectItem(0, Random.Range(3 + level / 4, 5 + level / 2));
+    }
 
+    void DropApple()
+    {
+        PlayerScript.StorageScript.CollectItem(1, 1);
+        /*if (Random.Range(0f, 100f + 1f * level) < 25f + 1f * level)
+            return true;
+        else return false;*/
     }
 }
