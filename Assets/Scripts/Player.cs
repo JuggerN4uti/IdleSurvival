@@ -187,6 +187,8 @@ public class Player : MonoBehaviour
                 UpgradesScript.Check();
             if (which == 1)
                 PerksScript.Check();
+            if (which == 2)
+                StorageScript.DisplayStorage();
         }
     }
 

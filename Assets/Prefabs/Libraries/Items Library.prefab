@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: eac388c23186f0f498e066e35b36d796, type: 3}
+  consumable: 0
 --- !u!1 &3838290936589769637
 GameObject:
   m_ObjectHideFlags: 0
@@ -139,3 +140,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: dde66718b3c234b4580d03607a5b3bce, type: 3}
+  consumable: 1
