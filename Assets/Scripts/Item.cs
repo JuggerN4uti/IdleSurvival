@@ -6,4 +6,5 @@ public class Item : MonoBehaviour
 {
     public Sprite ItemSprite;
     public bool consumable;
+    public string itemTooltip;
 }

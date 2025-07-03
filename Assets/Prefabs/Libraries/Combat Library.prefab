@@ -93,11 +93,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MobSprite: {fileID: 21300000, guid: 2a5fc57b97cdead4fb6f0b416dbef345, type: 3}
   MobHealth: 100
-  Xp: 0300000005000000
-  Gold: 0400000007000000
+  Xp: 0400000005000000
+  Gold: 030000000a000000
   BossSprite: {fileID: 21300000, guid: 045b80be1c09ea149849eb1df2feb13b, type: 3}
   BossHealth: 600
   BossAttackRate: 0
   BossAttackDamage: 0f00000011000000
-  BossXp: 31
-  BossGold: 42
+  BossXp: 35
+  BossGold: 49
+  mobDropCount: 2
+  dropID: 0200000003000000
+  maxDrops: 0200000001000000
+  dropChance:
+  - 0.34
+  - 0.07

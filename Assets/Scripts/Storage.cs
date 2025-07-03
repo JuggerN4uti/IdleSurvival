@@ -7,6 +7,7 @@ public class Storage : MonoBehaviour
 {
     [Header("Stats")]
     public Player PlayerScript;
+    public Woodcutting WoodcuttingScript;
     public ItemsLibrary ILib;
     public int[] itemsCount, itemsID;
     int itemsVariety;
@@ -20,6 +21,7 @@ public class Storage : MonoBehaviour
     public GameObject[] SlotObject;
     public Image[] SlotIcon;
     public TMPro.TextMeshProUGUI[] SlotAmountText;
+    public TMPro.TextMeshProUGUI TooltipText;
     public Button[] SlotButton;
 
     public void CollectItem(int itemID, int amount)
@@ -60,5 +62,31 @@ public class Storage : MonoBehaviour
                 itemsVariety++;
             }
         }
+    }
+
+    public void SlotClicked(int slot)
+    {
+        switch (itemsID[slot])
+        {
+            case 1:
+                PlayerScript.RestoreHealth(10);
+                break;
+            case 3:
+                WoodcuttingScript.GainXP(6, false);
+                break;
+        }
+
+        itemsCount[itemsID[slot]]--;
+        DisplayStorage();
+    }
+
+    public void SlotHovered(int slot)
+    {
+        TooltipText.text = ILib.Items[itemsID[slot]].itemTooltip;
+    }
+
+    public void Unhovered()
+    {
+        TooltipText.text = "";
     }
 }

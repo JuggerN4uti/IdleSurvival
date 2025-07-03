@@ -15,4 +15,9 @@ public class Stage : MonoBehaviour
     public float BossAttackRate;
     public int[] BossAttackDamage;
     public int BossXp, BossGold;
+
+    [Header("Drops")]
+    public int mobDropCount;
+    public int[] dropID, maxDrops;
+    public float[] dropChance;
 }

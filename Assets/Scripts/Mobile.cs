@@ -28,6 +28,12 @@ public class Mobile : MonoBehaviour
     public Transform Origin;
     private TextPop Displayed;
 
+    [Header("Drops")]
+    public int mobDropCount;
+    public int[] dropID, maxDrops;
+    public float[] dropChance;
+    int dropped;
+
     void Start()
     {
         SetMobile();
@@ -60,6 +66,14 @@ public class Mobile : MonoBehaviour
         expRange[1] = CLib.StageLibrary[stageID].Xp[1];
         goldRange[0] = CLib.StageLibrary[stageID].Gold[0];
         goldRange[1] = CLib.StageLibrary[stageID].Gold[1];
+
+        mobDropCount = CLib.StageLibrary[stageID].mobDropCount;
+        for (int i = 0; i < mobDropCount; i++)
+        {
+            dropID[i] = CLib.StageLibrary[stageID].dropID[i];
+            maxDrops[i] = CLib.StageLibrary[stageID].maxDrops[i];
+            dropChance[i] = CLib.StageLibrary[stageID].dropChance[i];
+        }
     }
 
     void ResetMobile()
@@ -77,7 +91,7 @@ public class Mobile : MonoBehaviour
     public void DamageMob(float amount, bool crit = false)
     {
         amount *= PlayerScript.damageIncrease;
-        PlayerScript.GainGold(Mathf.RoundToInt(amount * 0.005f));
+        PlayerScript.GainGold(Mathf.RoundToInt(amount * 0.0075f));
         damage = Mathf.RoundToInt(amount);
         health -= damage;
         Display(damage, crit);
@@ -103,13 +117,30 @@ public class Mobile : MonoBehaviour
     void Death()
     {
         alive = false;
+
         PlayerScript.GainXP(Random.Range(expRange[0], expRange[1] + 1));
         PlayerScript.GainGold(Random.Range(goldRange[0], goldRange[1] + 1));
+        Drops();
 
         HealthBarFill.fillAmount = 0f;
         HealthText.text = "0/" + maxHealth.ToString("0");
 
         CombatScript.MobSlained();
         Invoke("ResetMobile", 0.75f);
+    }
+
+    void Drops()
+    {
+        for (int i = 0; i < mobDropCount; i++)
+        {
+            dropped = 0;
+            for (int j = 0; j < maxDrops[i]; j++)
+            {
+                if (dropChance[i] >= Random.Range(0f, 1f))
+                    dropped++;
+            }
+            if (dropped > 0)
+                PlayerScript.StorageScript.CollectItem(dropID[i], dropped);
+        }
     }
 }

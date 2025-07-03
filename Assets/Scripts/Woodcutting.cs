@@ -54,17 +54,18 @@ public class Woodcutting : MonoBehaviour
     void TreeCut()
     {
         durability += 8f;
-        GainXP(Random.Range(3, 5));
+        GainXP(Random.Range(3, 5), true);
         DropWood();
         if (Random.Range(0f, 100f + 1f * level) < 25f + 1f * level)
             Invoke("DropApple", 0.75f);
     }
 
-    void GainXP(int xp)
+    public void GainXP(int xp, bool alsoBase)
     {
         experience += xp;
         Display(xp);
-        PlayerScript.GainXP(xp * level);
+        if (alsoBase)
+            PlayerScript.GainXP(xp * level);
         if (experience >= expRequired)
             LevelUp();
         ExperienceBarFill.fillAmount = (experience * 1f) / (expRequired * 1f);

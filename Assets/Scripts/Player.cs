@@ -151,7 +151,7 @@ public class Player : MonoBehaviour
         HealthText.text = health.ToString("0") + "/" + maxHealth.ToString("0");
     }
 
-    void RestoreHealth(int amount)
+    public void RestoreHealth(int amount)
     {
         health += amount;
         if (health > maxHealth)
