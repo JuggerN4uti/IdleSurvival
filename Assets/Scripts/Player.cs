@@ -12,6 +12,12 @@ public class Player : MonoBehaviour
     public Combat CombatScript;
     public Hero[] HeroScript;
 
+    [Header("Movement")]
+    public Rigidbody2D Body;
+    public float movementSpeed;
+    public Transform MoveTowards;
+    public Vector2 move;
+
     [Header("Task")]
     public int island;
     public int task; // 0 - combat, 1 - woodcutting
@@ -49,6 +55,16 @@ public class Player : MonoBehaviour
         {
             GainXP(bonusXP);
             GainGold(bonusGold);
+        }
+    }
+
+    void Update()
+    {
+        move = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        if (move[0] != 0 || move[1] != 0)
+        {
+            MoveTowards.position = new Vector3(transform.position.x + move[0] /*+ momentum[0] * 3f*/, transform.position.y + move[1] /*+ momentum[1] * 3f*/, transform.position.z);
+            transform.position = Vector2.MoveTowards(transform.position, MoveTowards.position, movementSpeed * Time.deltaTime);
         }
     }
 
@@ -200,7 +216,8 @@ public class Player : MonoBehaviour
         {
             TaskScreens[i].SetActive(false);
         }
-        TaskScreens[task].SetActive(true);
+        if (what != 2)
+            TaskScreens[task].SetActive(true);
 
         switch (task)
         {
@@ -209,5 +226,17 @@ public class Player : MonoBehaviour
             case 1:
                 break;
         }
+    }
+
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.transform.tag == "Tree")
+            ChangeTask(1);
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        ChangeTask(2);
     }
 }

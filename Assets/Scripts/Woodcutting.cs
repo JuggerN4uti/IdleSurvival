@@ -15,7 +15,7 @@ public class Woodcutting : MonoBehaviour
     public float[] cutStrengthRange;
 
     [Header("Tree")]
-    public float durability;
+    public float progress;
 
     [Header("UI")]
     public Image ExperienceBarFill;
@@ -45,15 +45,15 @@ public class Woodcutting : MonoBehaviour
     void Strike()
     {
         cutCharge -= 1f;
-        durability -= Random.Range(cutStrengthRange[0], cutStrengthRange[1]);
-        if (durability <= 0f)
+        progress += Random.Range(cutStrengthRange[0], cutStrengthRange[1]);
+        if (progress >= 8f)
             TreeCut();
-        ProgressBarFill.fillAmount = durability / 8f;
+        ProgressBarFill.fillAmount = progress / 8f;
     }
 
     void TreeCut()
     {
-        durability += 8f;
+        progress -= 8f;
         GainXP(Random.Range(3, 5), true);
         DropWood();
         if (Random.Range(0f, 100f + 1f * level) < 25f + 1f * level)
