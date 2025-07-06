@@ -17,6 +17,7 @@ public class Player : MonoBehaviour
     public float movementSpeed;
     public Transform MoveTowards;
     public Vector2 move;
+    public Vector3 mousePos, movePos;
 
     [Header("Task")]
     public int island;
@@ -60,12 +61,21 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        move = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        if (Input.GetMouseButtonDown(1))
+        {
+            //MoveTowards = Input.mousePosition;
+            mousePos = Input.mousePosition;
+            movePos = Camera.main.ScreenToWorldPoint(mousePos);
+            //MoveTowards = mousePos;
+        }
+        if (Vector3.Distance(transform.position, mousePos) > 0.003f)
+            transform.position = Vector2.MoveTowards(transform.position, movePos, movementSpeed * Time.deltaTime);
+        /*move = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         if (move[0] != 0 || move[1] != 0)
         {
-            MoveTowards.position = new Vector3(transform.position.x + move[0] /*+ momentum[0] * 3f*/, transform.position.y + move[1] /*+ momentum[1] * 3f*/, transform.position.z);
+            MoveTowards.position = new Vector3(transform.position.x + move[0], transform.position.y + move[1], transform.position.z);
             transform.position = Vector2.MoveTowards(transform.position, MoveTowards.position, movementSpeed * Time.deltaTime);
-        }
+        }*/
     }
 
     void Regen()
