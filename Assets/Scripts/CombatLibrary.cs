@@ -5,4 +5,5 @@ using UnityEngine;
 public class CombatLibrary : MonoBehaviour
 {
     public Stage[] StageLibrary;
+    public Mob[] Mobs;
 }

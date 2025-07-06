@@ -11,16 +11,22 @@ public class Mobile : MonoBehaviour
     public CombatLibrary CLib;
 
     [Header("Stats")]
-    public int stageID;
-    public int maxHealth;
-    public int health;
+    public int unitID;
+    public int maxHealth, health;
+    public int[] damageRange;
     public int[] expRange, goldRange;
     public float catchUp, fading;
     public bool alive;
     int damage;
 
+    [Header("Movement")]
+    public Vector3 CenterPosition;
+    public Vector3 MovePosition;
+    public float movementSpeed;
+    bool moving;
+
     [Header("UI")]
-    public Image UnitImage;
+    public SpriteRenderer UnitImage;
     public Image HealthBarFill, CatchUpFill;
     public TMPro.TextMeshProUGUI HealthText;
     public GameObject DisplayObject;
@@ -36,7 +42,10 @@ public class Mobile : MonoBehaviour
 
     void Start()
     {
-        SetMobile();
+        PlayerScript = GameObject.FindGameObjectWithTag("Player").GetComponent(typeof(Player)) as Player;
+        CenterPosition = transform.position;
+        Invoke("Wander", Random.Range(4.5f, 7.5f));
+        //SetMobile();
     }
 
     void Update()
@@ -51,28 +60,43 @@ public class Mobile : MonoBehaviour
             fading -= 1.2f * Time.deltaTime;
             UnitImage.color = new Color(fading, fading, fading, fading);
         }
+        if (moving)
+        {
+            transform.position = Vector2.MoveTowards(transform.position, MovePosition, movementSpeed * Time.deltaTime);
+            if (Vector3.Distance(transform.position, MovePosition) <= 0.003f)
+                moving = false;
+        }
+    }
+
+    void Wander()
+    {
+        MovePosition = new Vector3(CenterPosition.x + Random.Range(-1f, 1f), CenterPosition.y + Random.Range(-1f, 1f), CenterPosition.z);
+        moving = true;
+        Invoke("Wander", Random.Range(4.5f, 7.5f));
     }
 
     void SetMobile()
     {
-        UnitImage.sprite = CLib.StageLibrary[stageID].MobSprite;
-        maxHealth = CLib.StageLibrary[stageID].MobHealth;
+        UnitImage.sprite = CLib.Mobs[unitID].MobSprite;
+        maxHealth = CLib.Mobs[unitID].MobHealth;
         health = maxHealth;
         HealthBarFill.fillAmount = 1f;
         catchUp = maxHealth;
         CatchUpFill.fillAmount = 1f;
         HealthText.text = health.ToString("0") + "/" + maxHealth.ToString("0");
-        expRange[0] = CLib.StageLibrary[stageID].Xp[0];
-        expRange[1] = CLib.StageLibrary[stageID].Xp[1];
-        goldRange[0] = CLib.StageLibrary[stageID].Gold[0];
-        goldRange[1] = CLib.StageLibrary[stageID].Gold[1];
+        damageRange[0] = CLib.Mobs[unitID].AttackDamage[0];
+        damageRange[1] = CLib.Mobs[unitID].AttackDamage[1];
+        expRange[0] = CLib.Mobs[unitID].Xp[0];
+        expRange[1] = CLib.Mobs[unitID].Xp[1];
+        goldRange[0] = CLib.Mobs[unitID].Gold[0];
+        goldRange[1] = CLib.Mobs[unitID].Gold[1];
 
-        mobDropCount = CLib.StageLibrary[stageID].mobDropCount;
+        mobDropCount = CLib.Mobs[unitID].mobDropCount;
         for (int i = 0; i < mobDropCount; i++)
         {
-            dropID[i] = CLib.StageLibrary[stageID].dropID[i];
-            maxDrops[i] = CLib.StageLibrary[stageID].maxDrops[i];
-            dropChance[i] = CLib.StageLibrary[stageID].dropChance[i];
+            dropID[i] = CLib.Mobs[unitID].dropID[i];
+            maxDrops[i] = CLib.Mobs[unitID].maxDrops[i];
+            dropChance[i] = CLib.Mobs[unitID].dropChance[i];
         }
     }
 
