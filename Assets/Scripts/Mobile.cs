@@ -52,7 +52,16 @@ public class Mobile : MonoBehaviour
         CenterPosition = transform.position;
         if (!spawner)
             Invoke("Wander", Random.Range(4.5f, 7.5f));
-        //SetMobile();
+        SetMobile();
+    }
+
+    void SetMobile()
+    {
+        health = maxHealth;
+        catchUp = maxHealth;
+        HealthBarFill.fillAmount = 1f;
+        CatchUpFill.fillAmount = 1f;
+        HealthText.text = health.ToString("0") + "/" + maxHealth.ToString("0");
     }
 
     void Update()

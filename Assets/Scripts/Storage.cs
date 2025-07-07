@@ -9,6 +9,7 @@ public class Storage : MonoBehaviour
     public Player PlayerScript;
     public Woodcutting WoodcuttingScript;
     public ItemsLibrary ILib;
+    public Crafting CraftingScript;
     public int[] itemsCount, itemsID;
     int itemsVariety;
 
@@ -30,6 +31,8 @@ public class Storage : MonoBehaviour
         Display(itemID, amount);
         if (PlayerScript.windowOpened[2])
             DisplayStorage();
+        if (PlayerScript.windowOpened[3])
+            CraftingScript.DisplayRecipe();
     }
 
     void Display(int itemID, int amount)
