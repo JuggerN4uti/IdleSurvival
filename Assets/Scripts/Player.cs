@@ -18,6 +18,16 @@ public class Player : MonoBehaviour
     public Transform MoveTowards;
     public Vector2 move;
     public Vector3 mousePos, movePos;
+    bool moving;
+
+    [Header("Combat")]
+    public Mobile MobileTargeted;
+    public bool fighting;
+    public float attackRange;
+    public float[] attackDamage;
+    public float attackRate, attackCharge, critChance, critDamage;
+    float damage;
+    bool crited;
 
     [Header("Task")]
     public int island;
@@ -66,16 +76,52 @@ public class Player : MonoBehaviour
             //MoveTowards = Input.mousePosition;
             mousePos = Input.mousePosition;
             movePos = Camera.main.ScreenToWorldPoint(mousePos);
+            fighting = false;
+            moving = true;
             //MoveTowards = mousePos;
         }
-        if (Vector3.Distance(transform.position, mousePos) > 0.003f)
-            transform.position = Vector2.MoveTowards(transform.position, movePos, movementSpeed * Time.deltaTime);
+        if (fighting)
+        {
+            if (Vector3.Distance(transform.position, MobileTargeted.transform.position) > attackRange)
+                transform.position = Vector2.MoveTowards(transform.position, MobileTargeted.transform.position, movementSpeed * Time.deltaTime);
+            else
+            {
+                attackCharge += attackRate * Time.deltaTime * speedIncrease;
+                if (attackCharge >= 1f)
+                    Attack();
+                //AttackBarFill.fillAmount = attackCharge / 1f;
+            }
+        }
+        else if (moving)
+        {
+            if (Vector3.Distance(transform.position, mousePos) > 0.003f)
+                transform.position = Vector2.MoveTowards(transform.position, movePos, movementSpeed * Time.deltaTime);
+            else moving = false;
+        }
         /*move = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         if (move[0] != 0 || move[1] != 0)
         {
             MoveTowards.position = new Vector3(transform.position.x + move[0], transform.position.y + move[1], transform.position.z);
             transform.position = Vector2.MoveTowards(transform.position, MoveTowards.position, movementSpeed * Time.deltaTime);
         }*/
+    }
+
+    void Attack()
+    {
+        attackCharge -= 1f;
+        moving = false;
+        movePos = transform.position;
+
+        damage = Random.Range(attackDamage[0] + minDamageBonus, attackDamage[1] + maxDamageBonus);
+        damage *= damageIncrease;
+        if (critChance >= Random.Range(0f, 1f))
+        {
+            damage *= critDamage;
+            crited = true;
+        }
+        else crited = false;
+
+        MobileTargeted.DamageMob(damage, crited);
     }
 
     void Regen()

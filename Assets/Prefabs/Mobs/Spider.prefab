@@ -61,6 +61,18 @@ PrefabInstance:
       value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 699976750466405336, guid: 5b4e18be9a3d739419070031cd815da1, type: 3}
+      propertyPath: attackRate
+      value: 0.36
+      objectReference: {fileID: 0}
+    - target: {fileID: 699976750466405336, guid: 5b4e18be9a3d739419070031cd815da1, type: 3}
+      propertyPath: attackRange
+      value: 0.44
+      objectReference: {fileID: 0}
+    - target: {fileID: 699976750466405336, guid: 5b4e18be9a3d739419070031cd815da1, type: 3}
+      propertyPath: attackCharge
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 699976750466405336, guid: 5b4e18be9a3d739419070031cd815da1, type: 3}
       propertyPath: mobDropCount
       value: 1
       objectReference: {fileID: 0}

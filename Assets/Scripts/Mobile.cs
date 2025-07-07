@@ -15,9 +15,10 @@ public class Mobile : MonoBehaviour
     public int maxHealth, health;
     public int[] damageRange;
     public int[] expRange, goldRange;
-    public float catchUp, fading;
+    public float attackRange, attackCharge, attackRate, catchUp, fading;
     public bool alive;
     int damage;
+    bool fighting;
 
     [Header("Movement")]
     public Vector3 CenterPosition;
@@ -59,13 +60,39 @@ public class Mobile : MonoBehaviour
         {
             fading -= 1.2f * Time.deltaTime;
             UnitImage.color = new Color(fading, fading, fading, fading);
+            if (fading <= 0f)
+                Destroy(gameObject);
         }
-        if (moving)
+        else
         {
-            transform.position = Vector2.MoveTowards(transform.position, MovePosition, movementSpeed * Time.deltaTime);
-            if (Vector3.Distance(transform.position, MovePosition) <= 0.003f)
-                moving = false;
+            if (fighting)
+            {
+                if (Vector3.Distance(transform.position, PlayerScript.transform.position) > attackRange)
+                    transform.position = Vector2.MoveTowards(transform.position, PlayerScript.transform.position, movementSpeed * 1.3f * Time.deltaTime);
+                else
+                {
+                    attackCharge += attackRate * Time.deltaTime;
+                    if (attackCharge >= 1f)
+                        Attack();
+                    //AttackBarFill.fillAmount = attackCharge / 1f;
+                }
+            }
+            else if (moving)
+            {
+                transform.position = Vector2.MoveTowards(transform.position, MovePosition, movementSpeed * Time.deltaTime);
+                if (Vector3.Distance(transform.position, MovePosition) <= 0.003f)
+                    moving = false;
+            }
         }
+    }
+
+    void Attack()
+    {
+        attackCharge -= 1f;
+
+        damage = Random.Range(damageRange[0], damageRange[1] + 1);
+
+        PlayerScript.TakeDamage(damage);
     }
 
     void Wander()
@@ -75,51 +102,13 @@ public class Mobile : MonoBehaviour
         Invoke("Wander", Random.Range(4.5f, 7.5f));
     }
 
-    void SetMobile()
-    {
-        UnitImage.sprite = CLib.Mobs[unitID].MobSprite;
-        maxHealth = CLib.Mobs[unitID].MobHealth;
-        health = maxHealth;
-        HealthBarFill.fillAmount = 1f;
-        catchUp = maxHealth;
-        CatchUpFill.fillAmount = 1f;
-        HealthText.text = health.ToString("0") + "/" + maxHealth.ToString("0");
-        damageRange[0] = CLib.Mobs[unitID].AttackDamage[0];
-        damageRange[1] = CLib.Mobs[unitID].AttackDamage[1];
-        expRange[0] = CLib.Mobs[unitID].Xp[0];
-        expRange[1] = CLib.Mobs[unitID].Xp[1];
-        goldRange[0] = CLib.Mobs[unitID].Gold[0];
-        goldRange[1] = CLib.Mobs[unitID].Gold[1];
-
-        mobDropCount = CLib.Mobs[unitID].mobDropCount;
-        for (int i = 0; i < mobDropCount; i++)
-        {
-            dropID[i] = CLib.Mobs[unitID].dropID[i];
-            maxDrops[i] = CLib.Mobs[unitID].maxDrops[i];
-            dropChance[i] = CLib.Mobs[unitID].dropChance[i];
-        }
-    }
-
-    void ResetMobile()
-    {
-        alive = true;
-        fading = 1f;
-        UnitImage.color = new Color(fading, fading, fading, fading);
-        health = maxHealth;
-        HealthBarFill.fillAmount = 1f;
-        catchUp = maxHealth;
-        CatchUpFill.fillAmount = 1f;
-        HealthText.text = health.ToString("0") + "/" + maxHealth.ToString("0");
-    }
-
     public void DamageMob(float amount, bool crit = false)
     {
-        amount *= PlayerScript.damageIncrease;
-        PlayerScript.GainGold(Mathf.RoundToInt(amount * 0.0075f));
+        fighting = true;
         damage = Mathf.RoundToInt(amount);
         health -= damage;
         Display(damage, crit);
-        if (health <= 0f)
+        if (health <= 0f && alive)
             Death();
         else
         {
@@ -140,7 +129,10 @@ public class Mobile : MonoBehaviour
 
     void Death()
     {
+        fading = 1f;
         alive = false;
+        PlayerScript.MobileTargeted = null;
+        PlayerScript.fighting = false;
 
         PlayerScript.GainXP(Random.Range(expRange[0], expRange[1] + 1));
         PlayerScript.GainGold(Random.Range(goldRange[0], goldRange[1] + 1));
@@ -149,8 +141,8 @@ public class Mobile : MonoBehaviour
         HealthBarFill.fillAmount = 0f;
         HealthText.text = "0/" + maxHealth.ToString("0");
 
-        CombatScript.MobSlained();
-        Invoke("ResetMobile", 0.75f);
+        //CombatScript.MobSlained();
+        //Invoke("ResetMobile", 0.75f);
     }
 
     void Drops()
@@ -166,5 +158,11 @@ public class Mobile : MonoBehaviour
             if (dropped > 0)
                 PlayerScript.StorageScript.CollectItem(dropID[i], dropped);
         }
+    }
+
+    public void TargetThis()
+    {
+        PlayerScript.MobileTargeted = this;
+        PlayerScript.fighting = true;
     }
 }
