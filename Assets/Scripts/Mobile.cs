@@ -16,9 +16,14 @@ public class Mobile : MonoBehaviour
     public int[] damageRange;
     public int[] expRange, goldRange;
     public float attackRange, attackCharge, attackRate, catchUp, fading;
-    public bool alive;
+    public bool alive, fighting;
     int damage;
-    bool fighting;
+
+    [Header("Spawner")]
+    public bool spawner;
+    public int spawnPerDamage, spawnCharge;
+    public GameObject SpawnObject;
+    private Mobile MobileSpawned;
 
     [Header("Movement")]
     public Vector3 CenterPosition;
@@ -45,7 +50,8 @@ public class Mobile : MonoBehaviour
     {
         PlayerScript = GameObject.FindGameObjectWithTag("Player").GetComponent(typeof(Player)) as Player;
         CenterPosition = transform.position;
-        Invoke("Wander", Random.Range(4.5f, 7.5f));
+        if (!spawner)
+            Invoke("Wander", Random.Range(4.5f, 7.5f));
         //SetMobile();
     }
 
@@ -63,7 +69,7 @@ public class Mobile : MonoBehaviour
             if (fading <= 0f)
                 Destroy(gameObject);
         }
-        else
+        else if (!spawner)
         {
             if (fighting)
             {
@@ -114,17 +120,33 @@ public class Mobile : MonoBehaviour
         {
             HealthBarFill.fillAmount = (health * 1f) / (maxHealth * 1f);
             HealthText.text = health.ToString("0") + "/" + maxHealth.ToString("0");
+            if (spawner)
+            {
+                spawnCharge += damage;
+                if (spawnCharge >= spawnPerDamage)
+                    Spawn();
+            }
         }
     }
 
     void Display(int amount, bool crit)
     {
-        Origin.rotation = Quaternion.Euler(Origin.rotation.x, Origin.rotation.y, Body.rotation + Random.Range(-75f, 75f));
+        Origin.rotation = Quaternion.Euler(Origin.rotation.x, Origin.rotation.y, Body.rotation + Random.Range(-60f, 60f));
         GameObject display = Instantiate(DisplayObject, Origin.position, transform.rotation);
         Displayed = display.GetComponent(typeof(TextPop)) as TextPop;
         Displayed.SetDamageText(amount, crit);
         Rigidbody2D display_body = display.GetComponent<Rigidbody2D>();
-        display_body.AddForce(Origin.up * Random.Range(0.66f, 1.1f), ForceMode2D.Impulse);
+        display_body.AddForce(Origin.up * Random.Range(0.6f, 1f), ForceMode2D.Impulse);
+    }
+
+    void Spawn()
+    {
+        spawnCharge -= spawnPerDamage;
+
+        GameObject mob = Instantiate(SpawnObject, transform.position, transform.rotation);
+        MobileSpawned = mob.GetComponent(typeof(Mobile)) as Mobile;
+        MobileSpawned.PlayerScript = PlayerScript;
+        MobileSpawned.fighting = true;
     }
 
     void Death()

@@ -139,9 +139,13 @@ MonoBehaviour:
   unitID: 0
   maxHealth: 0
   health: 0
+  spawner: 0
   damageRange: 0000000000000000
   expRange: 0000000000000000
   goldRange: 0000000000000000
+  attackRange: 0
+  attackCharge: 0
+  attackRate: 0
   catchUp: 0
   fading: 0
   alive: 1
@@ -156,14 +160,9 @@ MonoBehaviour:
   Body: {fileID: 1330248837476738142}
   Origin: {fileID: 2791670373695222008}
   mobDropCount: 0
-  dropID: 0000000000000000000000000000000000000000
-  maxDrops: 0000000000000000000000000000000000000000
-  dropChance:
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
+  dropID: 
+  maxDrops: 
+  dropChance: []
 --- !u!50 &1330248837476738142
 Rigidbody2D:
   serializedVersion: 4
