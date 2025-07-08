@@ -122,11 +122,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 699976750466405336, guid: 5b4e18be9a3d739419070031cd815da1, type: 3}
       propertyPath: expRange.Array.data[0]
-      value: 22
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 699976750466405336, guid: 5b4e18be9a3d739419070031cd815da1, type: 3}
       propertyPath: expRange.Array.data[1]
-      value: 22
+      value: 27
       objectReference: {fileID: 0}
     - target: {fileID: 699976750466405336, guid: 5b4e18be9a3d739419070031cd815da1, type: 3}
       propertyPath: maxDrops.Array.data[0]
@@ -134,11 +134,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 699976750466405336, guid: 5b4e18be9a3d739419070031cd815da1, type: 3}
       propertyPath: goldRange.Array.data[0]
-      value: 29
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 699976750466405336, guid: 5b4e18be9a3d739419070031cd815da1, type: 3}
       propertyPath: goldRange.Array.data[1]
-      value: 32
+      value: 31
       objectReference: {fileID: 0}
     - target: {fileID: 699976750466405336, guid: 5b4e18be9a3d739419070031cd815da1, type: 3}
       propertyPath: dropChance.Array.data[0]

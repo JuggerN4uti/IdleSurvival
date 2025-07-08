@@ -98,8 +98,8 @@ MonoBehaviour:
   craftedCount: 1
   uniqueMaterials: 1
   materialID: 00000000
-  materialCount: 08000000
-  craftDuration: 40
+  materialCount: 0a000000
+  craftDuration: 20
 --- !u!1 &8544352632598987562
 GameObject:
   m_ObjectHideFlags: 0

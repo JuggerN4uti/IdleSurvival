@@ -46,12 +46,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eqType: 0
   EqSprite: {fileID: 21300000, guid: 8e86a2728d3a02a43af182385b5d11ee, type: 3}
-  DamageMultiplier: 1.42
-  SpeedMultiplier: 1.08
+  EqTooltip: Weapon
+  DamageMultiplier: 1.44
+  SpeedMultiplier: 1.1
   lines: 2
   lineText:
-  - x1.42 Damage
-  - x1.08 Attack Rate
+  - x1.44 Damage
+  - x1.1 Attack Rate
   lineColor:
   - {r: 0.49019608, g: 0.98039216, b: 0.49019608, a: 1}
   - {r: 0.49019608, g: 0.98039216, b: 0.49019608, a: 1}

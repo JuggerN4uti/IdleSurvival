@@ -50,15 +50,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 699976750466405336, guid: 5b4e18be9a3d739419070031cd815da1, type: 3}
       propertyPath: health
-      value: 100
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 699976750466405336, guid: 5b4e18be9a3d739419070031cd815da1, type: 3}
       propertyPath: catchUp
-      value: 100
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 699976750466405336, guid: 5b4e18be9a3d739419070031cd815da1, type: 3}
       propertyPath: maxHealth
-      value: 100
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 699976750466405336, guid: 5b4e18be9a3d739419070031cd815da1, type: 3}
       propertyPath: attackRate
@@ -110,11 +110,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 699976750466405336, guid: 5b4e18be9a3d739419070031cd815da1, type: 3}
       propertyPath: goldRange.Array.data[0]
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 699976750466405336, guid: 5b4e18be9a3d739419070031cd815da1, type: 3}
       propertyPath: goldRange.Array.data[1]
-      value: 12
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 699976750466405336, guid: 5b4e18be9a3d739419070031cd815da1, type: 3}
       propertyPath: dropChance.Array.data[0]
@@ -126,7 +126,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 699976750466405336, guid: 5b4e18be9a3d739419070031cd815da1, type: 3}
       propertyPath: damageRange.Array.data[1]
-      value: 9
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3188614149645613623, guid: 5b4e18be9a3d739419070031cd815da1, type: 3}
       propertyPath: m_Name

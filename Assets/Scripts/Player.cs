@@ -40,6 +40,10 @@ public class Player : MonoBehaviour
     public int maxHealth, health, regeneration;
     public float minDamageBonus, maxDamageBonus, damageIncrease, speedIncrease, goldIncrease;
 
+    [Header("Equipment Stats")]
+    public float weaponDamage;
+    public float weaponRate;
+
     [Header("UI")]
     public Image ExperienceBarFill;
     public Image HealthBarFill;
@@ -86,7 +90,7 @@ public class Player : MonoBehaviour
                 transform.position = Vector2.MoveTowards(transform.position, MobileTargeted.transform.position, movementSpeed * Time.deltaTime);
             else
             {
-                attackCharge += attackRate * Time.deltaTime * speedIncrease;
+                attackCharge += attackRate * Time.deltaTime * speedIncrease * weaponRate;
                 if (attackCharge >= 1f)
                     Attack();
                 //AttackBarFill.fillAmount = attackCharge / 1f;
@@ -114,6 +118,7 @@ public class Player : MonoBehaviour
 
         damage = Random.Range(attackDamage[0] + minDamageBonus, attackDamage[1] + maxDamageBonus);
         damage *= damageIncrease;
+        damage *= weaponDamage;
         if (critChance >= Random.Range(0f, 1f))
         {
             damage *= critDamage;
@@ -134,7 +139,8 @@ public class Player : MonoBehaviour
     public void GainXP(int xp)
     {
         experience += xp;
-        Display(xp, 0);
+        if (xp > 0)
+            Display(xp, 0);
         if (experience >= expRequired)
             LevelUp();
         ExperienceBarFill.fillAmount = (experience * 1f) / (expRequired * 1f);
@@ -180,6 +186,7 @@ public class Player : MonoBehaviour
         if (level % 4 == 0)
             regeneration++;
         expRequired = CalculateExpReq(level);
+        GainXP(0);
     }
 
     public void GainSP(int amount)
@@ -255,12 +262,24 @@ public class Player : MonoBehaviour
             windowOpened[which] = true;
             WindowObject[which].SetActive(true);
 
-            if (which == 0)
-                UpgradesScript.Check();
-            if (which == 1)
-                PerksScript.Check();
-            if (which == 2)
-                StorageScript.DisplayStorage();
+            switch (which)
+            {
+                case 0:
+                    UpgradesScript.Check();
+                    break;
+                case 1:
+                    PerksScript.Check();
+                    break;
+                case 2:
+                    StorageScript.DisplayStorage();
+                    break;
+                case 3:
+                    StorageScript.CraftingScript.DisplayRecipe();
+                    break;
+                case 4:
+                    StorageScript.DisplayEquipment();
+                    break;
+            }
         }
     }
 
