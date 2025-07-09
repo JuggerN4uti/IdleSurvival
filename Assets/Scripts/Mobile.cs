@@ -12,7 +12,7 @@ public class Mobile : MonoBehaviour
 
     [Header("Stats")]
     public int unitID;
-    public int maxHealth, health;
+    public int maxHealth, health, regeneration;
     public int[] damageRange;
     public int[] expRange, goldRange;
     public float attackRange, attackCharge, attackRate, catchUp, fading;
@@ -21,7 +21,7 @@ public class Mobile : MonoBehaviour
 
     [Header("Spawner")]
     public bool spawner;
-    public int spawnPerDamage, spawnCharge;
+    public int spawnPerDamage, nextSpawn;
     public GameObject SpawnObject;
     private Mobile MobileSpawned;
 
@@ -33,6 +33,7 @@ public class Mobile : MonoBehaviour
 
     [Header("UI")]
     public SpriteRenderer UnitImage;
+    public SpriteRenderer Shadow;
     public Image HealthBarFill, CatchUpFill;
     public TMPro.TextMeshProUGUI HealthText;
     public GameObject DisplayObject;
@@ -52,7 +53,10 @@ public class Mobile : MonoBehaviour
         CenterPosition = transform.position;
         if (!spawner)
             Invoke("Wander", Random.Range(4.5f, 7.5f));
+        else nextSpawn = maxHealth - spawnPerDamage / 4;
         SetMobile();
+        if (regeneration > 0)
+            Invoke("Regen", 0.8f);
     }
 
     void SetMobile()
@@ -101,6 +105,13 @@ public class Mobile : MonoBehaviour
         }
     }
 
+    void Regen()
+    {
+        //if (CombatScript.)
+        RestoreHealth(regeneration);
+        Invoke("Regen", 0.8f);
+    }
+
     void Attack()
     {
         attackCharge -= 1f;
@@ -131,11 +142,23 @@ public class Mobile : MonoBehaviour
             HealthText.text = health.ToString("0") + "/" + maxHealth.ToString("0");
             if (spawner)
             {
-                spawnCharge += damage;
-                if (spawnCharge >= spawnPerDamage)
+                if (health < nextSpawn)
                     Spawn();
             }
         }
+    }
+
+    public void RestoreHealth(int amount)
+    {
+        health += amount;
+        if (health > maxHealth)
+            health = maxHealth;
+        if (health > catchUp)
+            catchUp = health;
+
+        HealthBarFill.fillAmount = (health * 1f) / (maxHealth * 1f);
+        CatchUpFill.fillAmount = catchUp / (maxHealth * 1f);
+        HealthText.text = health.ToString("0") + "/" + maxHealth.ToString("0");
     }
 
     void Display(int amount, bool crit)
@@ -150,12 +173,15 @@ public class Mobile : MonoBehaviour
 
     void Spawn()
     {
-        spawnCharge -= spawnPerDamage;
+        nextSpawn -= spawnPerDamage;
 
         GameObject mob = Instantiate(SpawnObject, transform.position, transform.rotation);
         MobileSpawned = mob.GetComponent(typeof(Mobile)) as Mobile;
         MobileSpawned.PlayerScript = PlayerScript;
         MobileSpawned.fighting = true;
+
+        if (health < nextSpawn)
+            Spawn();
     }
 
     void Death()
@@ -193,6 +219,9 @@ public class Mobile : MonoBehaviour
 
     public void TargetThis()
     {
+        if (PlayerScript.MobileTargeted)
+            PlayerScript.MobileTargeted.Shadow.color = new Color(0f, 0f, 0f, 0.49f);
+        Shadow.color = new Color(1f, 0f, 0f, 0.49f);
         PlayerScript.MobileTargeted = this;
         PlayerScript.fighting = true;
     }

@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     public Perks PerksScript;
     public Combat CombatScript;
     public Hero[] HeroScript;
+    public WorldMap WorldMapScript;
 
     [Header("Movement")]
     public Rigidbody2D Body;
@@ -53,6 +54,7 @@ public class Player : MonoBehaviour
     private TextPop Displayed;
 
     [Header("Windowns")]
+    public GameObject WorldScreenObject;
     public GameObject[] WindowObject;
     public bool[] windowOpened;
 
@@ -80,6 +82,8 @@ public class Player : MonoBehaviour
             //MoveTowards = Input.mousePosition;
             mousePos = Input.mousePosition;
             movePos = Camera.main.ScreenToWorldPoint(mousePos);
+            if (MobileTargeted)
+                MobileTargeted.Shadow.color = new Color(0f, 0f, 0f, 0.49f);
             fighting = false;
             moving = true;
             //MoveTowards = mousePos;
@@ -281,6 +285,12 @@ public class Player : MonoBehaviour
                     break;
             }
         }
+    }
+
+    public void WorldView()
+    {
+        WorldScreenObject.SetActive(true);
+        WorldMapScript.Set(island);
     }
 
     public void ChangeTask(int what)
