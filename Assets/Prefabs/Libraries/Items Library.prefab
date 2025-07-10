@@ -223,6 +223,7 @@ Transform:
   - {fileID: 3637583883076222828}
   - {fileID: 8099039771936081550}
   - {fileID: 3531612682581451525}
+  - {fileID: 6730592136472785688}
   - {fileID: 4872966093458035242}
   - {fileID: 3410337774881111623}
   m_Father: {fileID: 0}
@@ -245,6 +246,7 @@ MonoBehaviour:
   - {fileID: 1969653164870887119}
   - {fileID: 1419663164453604635}
   - {fileID: 984887293333918521}
+  - {fileID: 3280718769236802262}
 --- !u!1 &4462557936515928673
 GameObject:
   m_ObjectHideFlags: 0
@@ -292,6 +294,53 @@ MonoBehaviour:
   ItemSprite: {fileID: 21300000, guid: 58639c5870f904c41bb62d3e41408376, type: 3}
   consumable: 0
   itemTooltip: String - used in crafting
+--- !u!1 &6825123407949027681
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6730592136472785688}
+  - component: {fileID: 3280718769236802262}
+  m_Layer: 0
+  m_Name: Leather
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6730592136472785688
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6825123407949027681}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4095515492840075347}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3280718769236802262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6825123407949027681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: add15eb1f95dc0547954491813d8a6b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ItemSprite: {fileID: 21300000, guid: 6f45ee532bc051c45aed6b2204f20188, type: 3}
+  consumable: 0
+  itemTooltip: Leather - used in crafting
 --- !u!1 &7043815571937284861
 GameObject:
   m_ObjectHideFlags: 0

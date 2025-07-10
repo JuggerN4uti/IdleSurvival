@@ -110,7 +110,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 699976750466405336, guid: 5b4e18be9a3d739419070031cd815da1, type: 3}
       propertyPath: dropChance.Array.data[0]
-      value: 0.3
+      value: 0.32
       objectReference: {fileID: 0}
     - target: {fileID: 699976750466405336, guid: 5b4e18be9a3d739419070031cd815da1, type: 3}
       propertyPath: damageRange.Array.data[0]

@@ -27,6 +27,7 @@ public class Player : MonoBehaviour
     public float attackRange;
     public float[] attackDamage;
     public float attackRate, attackCharge, critChance, critDamage;
+    int taken;
     float damage;
     bool crited;
 
@@ -42,7 +43,7 @@ public class Player : MonoBehaviour
     [Header("Stats")]
     public int gold;
     public int skillPoints, totalSkillPoints;
-    public int maxHealth, health;
+    public int maxHealth, health, armor;
     public float regeneration, minDamageBonus, maxDamageBonus, damageIncrease, speedIncrease, goldIncrease;
     float temp;
 
@@ -281,7 +282,10 @@ public class Player : MonoBehaviour
 
     public void TakeDamage(int amount)
     {
-        health -= amount;
+        Debug.Log("b4: " + amount);
+        taken = Mathf.RoundToInt(amount / (1f + armor * 0.02f));
+        Debug.Log("af: " + taken);
+        health -= taken;
         if (health <= 0)
         {
             CombatScript.Fallen();

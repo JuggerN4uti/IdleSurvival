@@ -12,7 +12,7 @@ public class Storage : MonoBehaviour
     public EquipmentLibrary ELib;
     public Crafting CraftingScript;
     public int[] itemsCount, itemsID, eqCount, eqID;
-    int itemsVariety;
+    int itemsVariety, armor;
 
     [Header("UI")]
     public GameObject DisplayObject;
@@ -108,7 +108,7 @@ public class Storage : MonoBehaviour
         {
             if (eqCount[i] > 0)
             {
-                EqSlotIcon[i].enabled = true;
+                EqSlotIcon[itemsVariety].enabled = true;
                 eqID[itemsVariety] = i;
                 EqSlotIcon[itemsVariety].sprite = ELib.EqItems[i].EqSprite;
                 EqSlotAmountText[itemsVariety].text = eqCount[i].ToString("0");
@@ -186,6 +186,13 @@ public class Storage : MonoBehaviour
             PlayerScript.weaponDamage = 1.0f;
             PlayerScript.weaponRate = 1.0f;
         }
+        armor = 0;
+        for (int i = 2; i < 5; i++)
+        {
+            if (gearEquiped[i])
+                armor += ELib.EqItems[gearWornID[i]].Armor;
+        }
+        PlayerScript.armor = armor;
     }
 
     public void SlotHovered(int slot, bool eq, bool worn)
