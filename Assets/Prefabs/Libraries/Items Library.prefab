@@ -94,6 +94,53 @@ MonoBehaviour:
   ItemSprite: {fileID: 21300000, guid: 721ae1d74624233448b10b702268acdb, type: 3}
   consumable: 0
   itemTooltip: Rope - used in crafting
+--- !u!1 &1117162637637185955
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3531612682581451525}
+  - component: {fileID: 984887293333918521}
+  m_Layer: 0
+  m_Name: Rock
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3531612682581451525
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1117162637637185955}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4095515492840075347}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &984887293333918521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1117162637637185955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: add15eb1f95dc0547954491813d8a6b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ItemSprite: {fileID: 21300000, guid: 14293a7d02efe5441aacebf7ceb75b13, type: 3}
+  consumable: 0
+  itemTooltip: Rock - used in crafting
 --- !u!1 &1803518620304921388
 GameObject:
   m_ObjectHideFlags: 0
@@ -175,6 +222,7 @@ Transform:
   - {fileID: 7590869031207367152}
   - {fileID: 3637583883076222828}
   - {fileID: 8099039771936081550}
+  - {fileID: 3531612682581451525}
   - {fileID: 4872966093458035242}
   - {fileID: 3410337774881111623}
   m_Father: {fileID: 0}
@@ -196,6 +244,7 @@ MonoBehaviour:
   - {fileID: 667477865614366842}
   - {fileID: 1969653164870887119}
   - {fileID: 1419663164453604635}
+  - {fileID: 984887293333918521}
 --- !u!1 &4462557936515928673
 GameObject:
   m_ObjectHideFlags: 0

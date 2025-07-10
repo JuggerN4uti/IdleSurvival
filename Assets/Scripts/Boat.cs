@@ -14,7 +14,7 @@ public class Boat : MonoBehaviour
     {
         if (!built)
         {
-            if (PlayerScript.StorageScript.itemsCount[0] >= 50 && PlayerScript.StorageScript.itemsCount[3] >= 2)
+            if (PlayerScript.StorageScript.itemsCount[0] >= 40 && PlayerScript.StorageScript.itemsCount[3] >= 2)
                 Repair();
         }
         else PlayerScript.WorldView();
@@ -22,7 +22,7 @@ public class Boat : MonoBehaviour
 
     void Repair()
     {
-        PlayerScript.StorageScript.UseItem(0, 50);
+        PlayerScript.StorageScript.UseItem(0, 40);
         PlayerScript.StorageScript.UseItem(3, 2);
         built = true;
         BoatImage.color = new Color(1f, 1f, 1f, 1f);

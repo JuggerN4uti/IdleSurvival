@@ -21,6 +21,7 @@ public class Mobile : MonoBehaviour
 
     [Header("Spawner")]
     public bool spawner;
+    public Transform DistancePoint, DistanceRotation;
     public int spawnPerDamage, nextSpawn;
     public GameObject SpawnObject;
     private Mobile MobileSpawned;
@@ -175,7 +176,10 @@ public class Mobile : MonoBehaviour
     {
         nextSpawn -= spawnPerDamage;
 
-        GameObject mob = Instantiate(SpawnObject, transform.position, transform.rotation);
+        DistancePoint.position = new Vector2(DistanceRotation.position.x, Random.Range(0.25f, 0.75f) + DistanceRotation.position.y);
+        DistanceRotation.rotation = Quaternion.Euler(0f, 0f, Random.Range(0f, 360f));
+
+        GameObject mob = Instantiate(SpawnObject, DistancePoint.position, transform.rotation);
         MobileSpawned = mob.GetComponent(typeof(Mobile)) as Mobile;
         MobileSpawned.PlayerScript = PlayerScript;
         MobileSpawned.fighting = true;
@@ -190,6 +194,7 @@ public class Mobile : MonoBehaviour
         alive = false;
         PlayerScript.MobileTargeted = null;
         PlayerScript.fighting = false;
+        Shadow.color = new Color(0f, 0f, 0f, 0.49f);
 
         PlayerScript.GainXP(Random.Range(expRange[0], expRange[1] + 1));
         PlayerScript.GainGold(Random.Range(goldRange[0], goldRange[1] + 1));
@@ -219,8 +224,7 @@ public class Mobile : MonoBehaviour
 
     public void TargetThis()
     {
-        if (PlayerScript.MobileTargeted)
-            PlayerScript.MobileTargeted.Shadow.color = new Color(0f, 0f, 0f, 0.49f);
+        PlayerScript.ChangeTask();
         Shadow.color = new Color(1f, 0f, 0f, 0.49f);
         PlayerScript.MobileTargeted = this;
         PlayerScript.fighting = true;

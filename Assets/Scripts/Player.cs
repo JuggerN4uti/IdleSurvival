@@ -31,15 +31,25 @@ public class Player : MonoBehaviour
     bool crited;
 
     [Header("Task")]
+    public Resource ResourceTargeted;
+    public bool collecting;
     public int island;
-    public int task; // 0 - combat, 1 - woodcutting
+    public int task; // 0 - woodcutting,
+    public float taskProgress;
+    public float[] collectingSpeed;
     public GameObject[] TaskScreens;
 
     [Header("Stats")]
+    public int gold;
+    public int skillPoints, totalSkillPoints;
+    public int maxHealth, health;
+    public float regeneration, minDamageBonus, maxDamageBonus, damageIncrease, speedIncrease, goldIncrease;
+    float temp;
+
+    [Header("Levels")]
     public int level;
-    public int experience, expRequired, gold, skillPoints, totalSkillPoints;
-    public int maxHealth, health, regeneration;
-    public float minDamageBonus, maxDamageBonus, damageIncrease, speedIncrease, goldIncrease;
+    public int experience, expRequired;
+    public int[] taskLevel, taskExperience, taskExpRequired;
 
     [Header("Equipment Stats")]
     public float weaponDamage;
@@ -48,7 +58,9 @@ public class Player : MonoBehaviour
     [Header("UI")]
     public Image ExperienceBarFill;
     public Image HealthBarFill;
+    public Image[] TaskExperienceBarFill;
     public TMPro.TextMeshProUGUI ExperienceText, LevelText, GoldText, HealthText;
+    public TMPro.TextMeshProUGUI[] TaskExperienceText, TaskLevelText;
     public GameObject DisplayObject;
     public Transform[] Origin;
     private TextPop Displayed;
@@ -67,7 +79,13 @@ public class Player : MonoBehaviour
         expRequired = CalculateExpReq(level);
         ExperienceBarFill.fillAmount = (experience * 1f) / (expRequired * 1f);
         ExperienceText.text = experience.ToString("0") + "/" + expRequired.ToString("0");
-        Invoke("Regen", 0.8f);
+        for (int i = 0; i < taskLevel.Length; i++)
+        {
+            taskExpRequired[i] = CalculateExpReq(taskLevel[i]);
+            TaskExperienceBarFill[i].fillAmount = (taskExperience[i] * 1f) / (taskExpRequired[i] * 1f);
+            TaskExperienceText[i].text = taskExperience[i].ToString("0") + "/" + taskExpRequired[i].ToString("0");
+        }
+        Invoke("Regen", 1f);
         if (bonusActive)
         {
             GainXP(bonusXP);
@@ -82,9 +100,7 @@ public class Player : MonoBehaviour
             //MoveTowards = Input.mousePosition;
             mousePos = Input.mousePosition;
             movePos = Camera.main.ScreenToWorldPoint(mousePos);
-            if (MobileTargeted)
-                MobileTargeted.Shadow.color = new Color(0f, 0f, 0f, 0.49f);
-            fighting = false;
+            ChangeTask();
             moving = true;
             //MoveTowards = mousePos;
         }
@@ -97,6 +113,18 @@ public class Player : MonoBehaviour
                 attackCharge += attackRate * Time.deltaTime * speedIncrease * weaponRate;
                 if (attackCharge >= 1f)
                     Attack();
+                //AttackBarFill.fillAmount = attackCharge / 1f;
+            }
+        }
+        else if (collecting)
+        {
+            if (Vector3.Distance(transform.position, ResourceTargeted.transform.position) > 0.3f)
+                transform.position = Vector2.MoveTowards(transform.position, ResourceTargeted.transform.position, movementSpeed * Time.deltaTime);
+            else
+            {
+                taskProgress += Time.deltaTime * speedIncrease * collectingSpeed[task];
+                if (taskProgress >= 1f)
+                    DoTask();
                 //AttackBarFill.fillAmount = attackCharge / 1f;
             }
         }
@@ -133,11 +161,19 @@ public class Player : MonoBehaviour
         MobileTargeted.DamageMob(damage, crited);
     }
 
+    void DoTask()
+    {
+        taskProgress -= 1f;
+        ResourceTargeted.Collect();
+    }
+
     void Regen()
     {
         //if (CombatScript.)
-        RestoreHealth(regeneration);
-        Invoke("Regen", 0.8f);
+        temp = 1f / regeneration;
+        Invoke("Regen", temp);
+        RestoreHealth(1);
+        //Invoke("Regen", 0.8f);
     }
 
     public void GainXP(int xp)
@@ -149,6 +185,18 @@ public class Player : MonoBehaviour
             LevelUp();
         ExperienceBarFill.fillAmount = (experience * 1f) / (expRequired * 1f);
         ExperienceText.text = experience.ToString("0") + "/" + expRequired.ToString("0");
+    }
+
+    public void GainTaskXP(int xp, int which)
+    {
+        GainXP(xp * taskLevel[which]);
+        taskExperience[which] += xp;
+        /*if (xp > 0)
+            Display(xp, 0);*/
+        if (taskExperience[which] >= taskExpRequired[which])
+            LevelUpTask(which);
+        TaskExperienceBarFill[which].fillAmount = (taskExperience[which] * 1f) / (taskExpRequired[which] * 1f);
+        TaskExperienceText[which].text = taskExperience[which].ToString("0") + "/" + taskExpRequired[which].ToString("0");
     }
 
     public void GainGold(int amount)
@@ -184,13 +232,22 @@ public class Player : MonoBehaviour
         level++;
         LevelText.text = level.ToString("0");
         GainSP(1);
-        GainHP(10);
+        GainHP(15);
         minDamageBonus += 0.1f + level * 0.01f;
         maxDamageBonus += 0.2f + level * 0.01f;
-        if (level % 4 == 0)
-            regeneration++;
+        regeneration += 0.15f;
         expRequired = CalculateExpReq(level);
         GainXP(0);
+    }
+
+    void LevelUpTask(int which)
+    {
+        taskExperience[which] -= taskExpRequired[which];
+        taskLevel[which]++;
+        TaskLevelText[which].text = taskLevel[which].ToString("0");
+        collectingSpeed[which] += 0.03f;
+        // switch task bla bla
+        taskExpRequired[which] = CalculateExpReq(taskLevel[which]);
     }
 
     public void GainSP(int amount)
@@ -293,16 +350,11 @@ public class Player : MonoBehaviour
         WorldMapScript.Set(island);
     }
 
-    public void ChangeTask(int what)
+    public void SelectNewTask(int which)
     {
-        task = what;
-
-        for (int i = 0; i < TaskScreens.Length; i++)
-        {
-            TaskScreens[i].SetActive(false);
-        }
-        if (what != 2)
-            TaskScreens[task].SetActive(true);
+        task = which;
+        
+        TaskScreens[task].SetActive(true);
 
         switch (task)
         {
@@ -313,8 +365,24 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void ChangeTask()
+    {
+        if (MobileTargeted)
+            MobileTargeted.Shadow.color = new Color(0f, 0f, 0f, 0.49f);
+        if (ResourceTargeted)
+            ResourceTargeted.Shadow.color = new Color(0f, 0f, 0f, 0.49f);
+        for (int i = 0; i < TaskScreens.Length; i++)
+        {
+            TaskScreens[i].SetActive(false);
+        }
+        fighting = false;
+        attackCharge = 0f;
+        collecting = false;
+        taskProgress = 0f;
+        moving = false;
+    }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    /*private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.transform.tag == "Tree")
             ChangeTask(1);
@@ -323,5 +391,5 @@ public class Player : MonoBehaviour
     private void OnTriggerExit2D(Collider2D other)
     {
         ChangeTask(2);
-    }
+    }*/
 }
