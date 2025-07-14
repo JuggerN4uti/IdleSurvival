@@ -43,7 +43,7 @@ public class Player : MonoBehaviour
     [Header("Stats")]
     public int gold;
     public int skillPoints, totalSkillPoints;
-    public int maxHealth, health, armor;
+    public int maxHealth, health;
     public float regeneration, minDamageBonus, maxDamageBonus, damageIncrease, speedIncrease, goldIncrease;
     float temp;
 
@@ -55,6 +55,7 @@ public class Player : MonoBehaviour
     [Header("Equipment Stats")]
     public float weaponDamage;
     public float weaponRate;
+    public int armor;
 
     [Header("UI")]
     public Image ExperienceBarFill;
@@ -282,13 +283,10 @@ public class Player : MonoBehaviour
 
     public void TakeDamage(int amount)
     {
-        Debug.Log("b4: " + amount);
         taken = Mathf.RoundToInt(amount / (1f + armor * 0.02f));
-        Debug.Log("af: " + taken);
         health -= taken;
         if (health <= 0)
         {
-            CombatScript.Fallen();
             health = 1;
         }
         HealthBarFill.fillAmount = (health * 1f) / (maxHealth * 1f);
@@ -300,11 +298,6 @@ public class Player : MonoBehaviour
         health += amount;
         if (health > maxHealth)
             health = maxHealth;
-        if (!CombatScript.bossFight)
-        {
-            if (health * 4 > maxHealth * 3)
-                CombatScript.FightBossButton.interactable = true;
-        }
 
         HealthBarFill.fillAmount = (health * 1f) / (maxHealth * 1f);
         HealthText.text = health.ToString("0") + "/" + maxHealth.ToString("0");
@@ -380,9 +373,11 @@ public class Player : MonoBehaviour
             TaskScreens[i].SetActive(false);
         }
         fighting = false;
-        attackCharge = 0f;
+        if (attackCharge > 0.1f)
+            attackCharge = 0.1f;
         collecting = false;
-        taskProgress = 0f;
+        if (taskProgress > 0.1f)
+            taskProgress = 0.1f;
         moving = false;
     }
 

@@ -24,9 +24,9 @@ public class Perks : MonoBehaviour
         switch (id)
         {
             case 0:
-                PlayerScript.HeroScript[HeroID].attackDamage[0] += 1.5f;
-                PlayerScript.HeroScript[HeroID].attackDamage[1] += 1.7f;
-                PerkEffectText[id].text = PlayerScript.HeroScript[HeroID].attackDamage[0].ToString("0.0") + "-" + PlayerScript.HeroScript[HeroID].attackDamage[1].ToString("0.0");
+                PlayerScript.attackDamage[0] += 1.5f;
+                PlayerScript.attackDamage[1] += 1.7f;
+                PerkEffectText[id].text = PlayerScript.attackDamage[0].ToString("0.0") + "-" + PlayerScript.attackDamage[1].ToString("0.0");
                 break;
             case 1:
                 PlayerScript.GainHP(25);

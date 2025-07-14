@@ -14,6 +14,7 @@ public class Crafting : MonoBehaviour
     [Header("Stats")]
     public int recpie;
     public int differentMaterials;
+    public bool[] eqMaterial;
     public int[] materialID, materialRequired;
     public int timeRequired;
     int minutes;
@@ -82,9 +83,12 @@ public class Crafting : MonoBehaviour
         for (int i = 0; i < differentMaterials; i++)
         {
             MaterialObject[i].SetActive(true);
+            eqMaterial[i] = CLib.Recipes[recpie].eqMaterial[i];
             materialID[i] = CLib.Recipes[recpie].materialID[i];
             materialRequired[i] = CLib.Recipes[recpie].materialCount[i];
-            MaterialIcon[i].sprite = ILib.Items[materialID[i]].ItemSprite;
+            if (eqMaterial[i])
+                MaterialIcon[i].sprite = ELib.EqItems[materialID[i]].EqSprite;
+            else MaterialIcon[i].sprite = ILib.Items[materialID[i]].ItemSprite;
         }
     }
 
@@ -93,13 +97,27 @@ public class Crafting : MonoBehaviour
         enough = true;
         for (int i = 0; i < differentMaterials; i++)
         {
-            MaterialAmountText[i].text = StorageScript.itemsCount[materialID[i]].ToString("0") + "/" + materialRequired[i].ToString("0");
-            if (StorageScript.itemsCount[materialID[i]] >= materialRequired[i])
-                MaterialAmountText[i].color = new Color(1f, 1f, 1f, 1f);
+            if (eqMaterial[i])
+            {
+                MaterialAmountText[i].text = StorageScript.eqCount[materialID[i]].ToString("0") + "/" + materialRequired[i].ToString("0");
+                if (StorageScript.eqCount[materialID[i]] >= materialRequired[i])
+                    MaterialAmountText[i].color = new Color(1f, 1f, 1f, 1f);
+                else
+                {
+                    MaterialAmountText[i].color = new Color(1f, 0.25f, 0.25f, 1f);
+                    enough = false;
+                }
+            }
             else
             {
-                MaterialAmountText[i].color = new Color(1f, 0.25f, 0.25f, 1f);
-                enough = false;
+                MaterialAmountText[i].text = StorageScript.itemsCount[materialID[i]].ToString("0") + "/" + materialRequired[i].ToString("0");
+                if (StorageScript.itemsCount[materialID[i]] >= materialRequired[i])
+                    MaterialAmountText[i].color = new Color(1f, 1f, 1f, 1f);
+                else
+                {
+                    MaterialAmountText[i].color = new Color(1f, 0.25f, 0.25f, 1f);
+                    enough = false;
+                }
             }
         }
         if (craftingInProgress)
@@ -121,7 +139,9 @@ public class Crafting : MonoBehaviour
     {
         for (int i = 0; i < differentMaterials; i++)
         {
-            StorageScript.UseItem(materialID[i], materialRequired[i]);
+            if (eqMaterial[i])
+                StorageScript.UseEq(materialID[i], materialRequired[i]);
+            else StorageScript.UseItem(materialID[i], materialRequired[i]);
         }
         recipeCrafted = recpie;
         duration = timeRequired;

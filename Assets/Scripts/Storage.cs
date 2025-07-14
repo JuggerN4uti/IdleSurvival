@@ -29,7 +29,7 @@ public class Storage : MonoBehaviour
     [Header("Equipment")]
     public bool[] gearEquiped;
     public int[] gearWornID;
-    int eqSlot;
+    public int eqSlot, eqUnequipped;
 
     public void CollectItem(int itemID, int amount)
     {
@@ -53,6 +53,11 @@ public class Storage : MonoBehaviour
             DisplayEq(eqID, 1);
         if (PlayerScript.windowOpened[4])
             DisplayEquipment();
+    }
+
+    public void UseEq(int eqID, int amount)
+    {
+        eqCount[eqID] -= amount;
     }
 
     void Display(int itemID, int amount)
@@ -138,15 +143,17 @@ public class Storage : MonoBehaviour
         eqSlot = ELib.EqItems[eqID[slot]].eqType;
         if (gearEquiped[eqSlot])
         {
-            CollectEq(gearWornID[eqSlot], false);
+            eqUnequipped = gearWornID[eqSlot];
             gearWornID[eqSlot] = eqID[slot];
+            eqCount[eqID[slot]]--;
+            CollectEq(eqUnequipped, false);
         }
         else
         {
             gearEquiped[eqSlot] = true;
             gearWornID[eqSlot] = eqID[slot];
+            eqCount[eqID[slot]]--;
         }
-        eqCount[eqID[slot]]--;
         DisplayEquipment();
         DisplayGear();
         SetGearStats();
@@ -201,7 +208,7 @@ public class Storage : MonoBehaviour
         {
             if (worn)
                 EqTooltipText.text = ELib.EqItems[gearWornID[slot]].EqTooltip; //potem reszte stat
-            else EqTooltipText.text = ELib.EqItems[itemsID[slot]].EqTooltip; //potem reszte stat
+            else EqTooltipText.text = ELib.EqItems[eqID[slot]].EqTooltip; //potem reszte stat
         }
         else TooltipText.text = ILib.Items[itemsID[slot]].itemTooltip;
     }

@@ -35,6 +35,7 @@ Transform:
   - {fileID: 8131436326846276557}
   - {fileID: 7418186403027637418}
   - {fileID: 5295841548126674461}
+  - {fileID: 4778725169368702334}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8378758645097856973
@@ -55,6 +56,7 @@ MonoBehaviour:
   - {fileID: 4213415737191105680}
   - {fileID: 2989310461112836521}
   - {fileID: 7537365338604338583}
+  - {fileID: 5520509242453991966}
 --- !u!1 &1726340049788994607
 GameObject:
   m_ObjectHideFlags: 0
@@ -103,9 +105,10 @@ MonoBehaviour:
   craftedID: 3
   craftedCount: 1
   uniqueMaterials: 2
+  eqMaterial: 0000
   materialID: 0500000003000000
   materialCount: 0400000002000000
-  craftDuration: 20
+  craftDuration: 15
 --- !u!1 &1953718215020971910
 GameObject:
   m_ObjectHideFlags: 0
@@ -117,7 +120,7 @@ GameObject:
   - component: {fileID: 3984064044432412513}
   - component: {fileID: 3983711325764898195}
   m_Layer: 0
-  m_Name: Big Stick Recipe
+  m_Name: Wooden Sword Recipe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -154,9 +157,62 @@ MonoBehaviour:
   craftedID: 0
   craftedCount: 1
   uniqueMaterials: 1
+  eqMaterial: 00
   materialID: 00000000
   materialCount: 0a000000
-  craftDuration: 20
+  craftDuration: 15
+--- !u!1 &3638674352472225355
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4778725169368702334}
+  - component: {fileID: 5520509242453991966}
+  m_Layer: 0
+  m_Name: Stone Sword Recipe
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4778725169368702334
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3638674352472225355}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1438575868450093027}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5520509242453991966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3638674352472225355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 743a796cfc16eea478ff6e3245aa80c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eqItem: 1
+  craftedID: 4
+  craftedCount: 1
+  uniqueMaterials: 2
+  eqMaterial: 0100
+  materialID: 0000000004000000
+  materialCount: 0100000008000000
+  craftDuration: 30
 --- !u!1 &4028541004463522969
 GameObject:
   m_ObjectHideFlags: 0
@@ -205,9 +261,10 @@ MonoBehaviour:
   craftedID: 1
   craftedCount: 1
   uniqueMaterials: 2
+  eqMaterial: 0000
   materialID: 0500000003000000
   materialCount: 0600000001000000
-  craftDuration: 20
+  craftDuration: 15
 --- !u!1 &5252036317970142027
 GameObject:
   m_ObjectHideFlags: 0
@@ -256,9 +313,10 @@ MonoBehaviour:
   craftedID: 2
   craftedCount: 1
   uniqueMaterials: 2
+  eqMaterial: 0000
   materialID: 0500000003000000
   materialCount: 0300000001000000
-  craftDuration: 20
+  craftDuration: 15
 --- !u!1 &8544352632598987562
 GameObject:
   m_ObjectHideFlags: 0
@@ -307,6 +365,7 @@ MonoBehaviour:
   craftedID: 3
   craftedCount: 1
   uniqueMaterials: 1
+  eqMaterial: 00
   materialID: 02000000
   materialCount: 03000000
-  craftDuration: 30
+  craftDuration: 25

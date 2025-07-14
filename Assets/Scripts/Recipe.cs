@@ -10,6 +10,7 @@ public class Recipe : MonoBehaviour
 
     [Header("Recipe")]
     public int uniqueMaterials;
+    public bool[] eqMaterial;
     public int[] materialID, materialCount;
     public int craftDuration;
 }

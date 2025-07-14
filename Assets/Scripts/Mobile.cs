@@ -17,6 +17,7 @@ public class Mobile : MonoBehaviour
     public int[] expRange, goldRange;
     public float attackRange, attackCharge, attackRate, catchUp, fading;
     public bool alive, fighting;
+    public bool perishing;
     int damage;
 
     [Header("Spawner")]
@@ -131,12 +132,14 @@ public class Mobile : MonoBehaviour
 
     public void DamageMob(float amount, bool crit = false)
     {
+        if (perishing)
+            perishing = false;
         fighting = true;
         damage = Mathf.RoundToInt(amount);
         health -= damage;
         Display(damage, crit);
         if (health <= 0f && alive)
-            Death();
+            Death(true);
         else
         {
             HealthBarFill.fillAmount = (health * 1f) / (maxHealth * 1f);
@@ -188,7 +191,7 @@ public class Mobile : MonoBehaviour
             Spawn();
     }
 
-    void Death()
+    void Death(bool killed)
     {
         fading = 1f;
         alive = false;
@@ -196,13 +199,15 @@ public class Mobile : MonoBehaviour
         PlayerScript.fighting = false;
         Shadow.color = new Color(0f, 0f, 0f, 0.49f);
 
-        PlayerScript.GainXP(Random.Range(expRange[0], expRange[1] + 1));
-        PlayerScript.GainGold(Random.Range(goldRange[0], goldRange[1] + 1));
-        Drops();
-
         HealthBarFill.fillAmount = 0f;
         HealthText.text = "0/" + maxHealth.ToString("0");
 
+        if (killed)
+        {
+            PlayerScript.GainXP(Random.Range(expRange[0], expRange[1] + 1));
+            PlayerScript.GainGold(Random.Range(goldRange[0], goldRange[1] + 1));
+            Drops();
+        }
         //CombatScript.MobSlained();
         //Invoke("ResetMobile", 0.75f);
     }
@@ -228,5 +233,22 @@ public class Mobile : MonoBehaviour
         Shadow.color = new Color(1f, 0f, 0f, 0.49f);
         PlayerScript.MobileTargeted = this;
         PlayerScript.fighting = true;
+    }
+
+    public void SetExpire(float timer)
+    {
+        perishing = true;
+        Invoke("Perish", timer);
+    }
+
+    void Perish()
+    {
+        if (perishing)
+            Death(false);
+        else
+        {
+            perishing = true;
+            Invoke("Perish", 50f);
+        }
     }
 }

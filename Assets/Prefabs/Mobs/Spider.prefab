@@ -70,7 +70,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 699976750466405336, guid: 5b4e18be9a3d739419070031cd815da1, type: 3}
       propertyPath: movementSpeed
-      value: 0.63
+      value: 0.79
       objectReference: {fileID: 0}
     - target: {fileID: 699976750466405336, guid: 5b4e18be9a3d739419070031cd815da1, type: 3}
       propertyPath: dropID.Array.size
@@ -90,11 +90,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 699976750466405336, guid: 5b4e18be9a3d739419070031cd815da1, type: 3}
       propertyPath: expRange.Array.data[0]
-      value: 3
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 699976750466405336, guid: 5b4e18be9a3d739419070031cd815da1, type: 3}
       propertyPath: expRange.Array.data[1]
-      value: 11
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 699976750466405336, guid: 5b4e18be9a3d739419070031cd815da1, type: 3}
       propertyPath: maxDrops.Array.data[0]
@@ -102,11 +102,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 699976750466405336, guid: 5b4e18be9a3d739419070031cd815da1, type: 3}
       propertyPath: goldRange.Array.data[0]
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 699976750466405336, guid: 5b4e18be9a3d739419070031cd815da1, type: 3}
       propertyPath: goldRange.Array.data[1]
-      value: 10
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 699976750466405336, guid: 5b4e18be9a3d739419070031cd815da1, type: 3}
       propertyPath: dropChance.Array.data[0]

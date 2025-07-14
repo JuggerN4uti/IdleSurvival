@@ -13,7 +13,7 @@ public class Resource : MonoBehaviour
     public int resourceType, maxCollects; // 0 - wood,
     public int collectsLeft;
     public float catchUp;
-    bool destroyed;
+    bool destroyed, perishing;
 
     [Header("Collecting")]
     public int expPerCollect;
@@ -69,6 +69,8 @@ public class Resource : MonoBehaviour
 
     public void Collect()
     {
+        if (perishing)
+            perishing = false;
         collectsLeft--;
         if (collectsLeft <= 0)
             FullyCollected();
@@ -91,17 +93,7 @@ public class Resource : MonoBehaviour
     {
         if (infiniteResource)
             SetResource();
-        else
-        {
-            fading = 1f;
-            destroyed = true;
-            PlayerScript.ResourceTargeted = null;
-            PlayerScript.collecting = false;
-            Shadow.color = new Color(0f, 0f, 0f, 0.49f);
-
-            ProgressBarFill.fillAmount = 0f;
-            ProgressText.text = "0/" + maxCollects.ToString("0");
-        }
+        else Fade();
 
         PlayerScript.GainTaskXP(Random.Range(expForComplete[0], expForComplete[1] + 1), resourceType);
 
@@ -110,6 +102,18 @@ public class Resource : MonoBehaviour
 
         if (Random.Range(0f, 100f + increaseChancePerLevel * level) < bonusDropChance + increaseChancePerLevel * level)
             Invoke("BonusDrop", 0.8f);
+    }
+
+    void Fade()
+    {
+        fading = 1f;
+        destroyed = true;
+        PlayerScript.ResourceTargeted = null;
+        PlayerScript.collecting = false;
+        Shadow.color = new Color(0f, 0f, 0f, 0.49f);
+
+        ProgressBarFill.fillAmount = 0f;
+        ProgressText.text = "0/" + maxCollects.ToString("0");
     }
 
     void BonusDrop()
@@ -124,5 +128,22 @@ public class Resource : MonoBehaviour
         PlayerScript.ResourceTargeted = this;
         PlayerScript.SelectNewTask(resourceType);
         PlayerScript.collecting = true;
+    }
+
+    public void SetExpire(float timer)
+    {
+        perishing = true;
+        Invoke("Perish", timer);
+    }
+
+    void Perish()
+    {
+        if (perishing)
+            Fade();
+        else
+        {
+            perishing = true;
+            Invoke("Perish", 50f);
+        }
     }
 }
