@@ -15,6 +15,8 @@ public class Equipment : MonoBehaviour
 
     [Header("Armor")]
     public int Armor;
+    public int BonusHealth;
+    public float BonusRegen;
 
     [Header("Tooltip")]
     public int lines;

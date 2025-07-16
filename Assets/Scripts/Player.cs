@@ -33,12 +33,14 @@ public class Player : MonoBehaviour
 
     [Header("Task")]
     public Resource ResourceTargeted;
-    public bool collecting;
+    public bool collecting, automation;
     public int island;
-    public int task; // 0 - woodcutting,
+    public int task, auto; // 0 - woodcutting,
     public float taskProgress;
     public float[] collectingSpeed;
     public GameObject[] TaskScreens;
+    public GameObject FinderPrefab;
+    private Finder FinderScript;
 
     [Header("Stats")]
     public int gold;
@@ -60,7 +62,7 @@ public class Player : MonoBehaviour
     [Header("UI")]
     public Image ExperienceBarFill;
     public Image HealthBarFill;
-    public Image[] TaskExperienceBarFill;
+    public Image[] TaskExperienceBarFill, AutomationImage;
     public TMPro.TextMeshProUGUI ExperienceText, LevelText, GoldText, HealthText;
     public TMPro.TextMeshProUGUI[] TaskExperienceText, TaskLevelText;
     public GameObject DisplayObject;
@@ -234,10 +236,10 @@ public class Player : MonoBehaviour
         level++;
         LevelText.text = level.ToString("0");
         GainSP(1);
-        GainHP(15);
-        minDamageBonus += 0.1f + level * 0.01f;
-        maxDamageBonus += 0.2f + level * 0.01f;
-        regeneration += 0.15f;
+        GainHP(20);
+        minDamageBonus += 0.12f + level * 0.01f;
+        maxDamageBonus += 0.22f + level * 0.01f;
+        regeneration += 0.1f;
         expRequired = CalculateExpReq(level);
         GainXP(0);
     }
@@ -272,7 +274,19 @@ public class Player : MonoBehaviour
         maxHealth += amount;
         health += amount;
 
-        HealthBarFill.fillAmount = (health * 1f) / (maxHealth * 1f);
+        HealthBarFill.fillAmount = HealthPercent();
+        HealthText.text = health.ToString("0") + "/" + maxHealth.ToString("0");
+    }
+
+    public void LoseHP(int amount)
+    {
+        maxHealth -= amount;
+        health -= amount;
+
+        if (health <= 0)
+            health = 1;
+
+        HealthBarFill.fillAmount = HealthPercent();
         HealthText.text = health.ToString("0") + "/" + maxHealth.ToString("0");
     }
 
@@ -283,13 +297,13 @@ public class Player : MonoBehaviour
 
     public void TakeDamage(int amount)
     {
-        taken = Mathf.RoundToInt(amount / (1f + armor * 0.02f));
+        taken = Mathf.RoundToInt(amount / (1f + armor * 0.01f));
         health -= taken;
         if (health <= 0)
         {
             health = 1;
         }
-        HealthBarFill.fillAmount = (health * 1f) / (maxHealth * 1f);
+        HealthBarFill.fillAmount = HealthPercent();
         HealthText.text = health.ToString("0") + "/" + maxHealth.ToString("0");
     }
 
@@ -299,7 +313,7 @@ public class Player : MonoBehaviour
         if (health > maxHealth)
             health = maxHealth;
 
-        HealthBarFill.fillAmount = (health * 1f) / (maxHealth * 1f);
+        HealthBarFill.fillAmount = HealthPercent();
         HealthText.text = health.ToString("0") + "/" + maxHealth.ToString("0");
     }
 
@@ -341,6 +355,36 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void SelectAutomation(int autoID)
+    {
+        if (automation)
+        {
+            if (autoID == auto)
+            {
+                automation = false;
+                AutomationImage[auto].color = new Color(0f, 0f, 0f, 0.49f);
+            }
+            else
+            {
+                AutomationImage[auto].color = new Color(0f, 0f, 0f, 0.49f);
+                auto = autoID;
+                AutomationImage[auto].color = new Color(0f, 0f, 0.49f, 0.49f);
+                if (auto == 0)
+                    AutoCombat();
+                else AutoCollect();
+            }
+        }
+        else
+        {
+            automation = true;
+            auto = autoID;
+            AutomationImage[auto].color = new Color(0f, 0f, 0.49f, 0.49f);
+            if (auto == 0)
+                AutoCombat();
+            else AutoCollect();
+        }
+    }
+
     public void WorldView()
     {
         WorldScreenObject.SetActive(true);
@@ -379,6 +423,41 @@ public class Player : MonoBehaviour
         if (taskProgress > 0.1f)
             taskProgress = 0.1f;
         moving = false;
+    }
+
+    void AutoCombat()
+    {
+        if (automation && auto == 0)
+        {
+            if (HealthPercent() >= 0.3f && !fighting)
+            {
+                GameObject finder = Instantiate(FinderPrefab, transform.position, transform.rotation);
+                FinderScript = finder.GetComponent(typeof(Finder)) as Finder;
+                FinderScript.PlayerScript = this;
+                FinderScript.taskFinderID = 0;
+            }
+            Invoke("AutoCombat", 3f);
+        }
+    }
+
+    void AutoCollect()
+    {
+        if (automation && auto == 1)
+        {
+            if (!collecting)
+            {
+                GameObject finder = Instantiate(FinderPrefab, transform.position, transform.rotation);
+                FinderScript = finder.GetComponent(typeof(Finder)) as Finder;
+                FinderScript.PlayerScript = this;
+                FinderScript.taskFinderID = 1;
+            }
+            Invoke("AutoCollect", 3f);
+        }
+    }
+
+    float HealthPercent()
+    {
+        return (health * 1f) / (maxHealth * 1f);
     }
 
     /*private void OnTriggerEnter2D(Collider2D other)

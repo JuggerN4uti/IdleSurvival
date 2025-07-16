@@ -42,6 +42,7 @@ public class Mobile : MonoBehaviour
     public Rigidbody2D Body;
     public Transform Origin;
     private TextPop Displayed;
+    public Collider2D collide;
 
     [Header("Drops")]
     public int mobDropCount;
@@ -198,6 +199,7 @@ public class Mobile : MonoBehaviour
         PlayerScript.MobileTargeted = null;
         PlayerScript.fighting = false;
         Shadow.color = new Color(0f, 0f, 0f, 0.49f);
+        collide.enabled = false;
 
         HealthBarFill.fillAmount = 0f;
         HealthText.text = "0/" + maxHealth.ToString("0");

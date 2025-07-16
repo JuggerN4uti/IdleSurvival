@@ -144,6 +144,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Spider Den
       objectReference: {fileID: 0}
+    - target: {fileID: 3188614149645613623, guid: 5b4e18be9a3d739419070031cd815da1, type: 3}
+      propertyPath: m_TagString
+      value: Metin
+      objectReference: {fileID: 0}
     - target: {fileID: 3400131645439286551, guid: 5b4e18be9a3d739419070031cd815da1, type: 3}
       propertyPath: m_Sprite
       value: 

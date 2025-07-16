@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Tree
+  - Mobile
+  - Resource
+  - Metin
   layers:
   - Default
   - TransparentFX

@@ -49,11 +49,15 @@ MonoBehaviour:
   EqTooltip: Head
   DamageMultiplier: 0
   SpeedMultiplier: 0
-  Armor: 5
-  lines: 1
+  Armor: 6
+  BonusHealth: 15
+  BonusRegen: 0
+  lines: 2
   lineText:
-  - 5 Armor
+  - 6 Armor
+  - +15 Health
   lineColor:
+  - {r: 0.49019608, g: 0.98039216, b: 0.49019608, a: 1}
   - {r: 0.49019608, g: 0.98039216, b: 0.49019608, a: 1}
 --- !u!1 &1078645284498255017
 GameObject:
@@ -104,11 +108,17 @@ MonoBehaviour:
   EqTooltip: Upper Body
   DamageMultiplier: 0
   SpeedMultiplier: 0
-  Armor: 8
-  lines: 1
+  Armor: 10
+  BonusHealth: 25
+  BonusRegen: 0.1
+  lines: 3
   lineText:
-  - 8 Armor
+  - 10 Armor
+  - +25 Health
+  - +0.1 Regen
   lineColor:
+  - {r: 0.49019608, g: 0.98039216, b: 0.49019608, a: 1}
+  - {r: 0.49019608, g: 0.98039216, b: 0.49019608, a: 1}
   - {r: 0.49019608, g: 0.98039216, b: 0.49019608, a: 1}
 --- !u!1 &1429764851063043630
 GameObject:
@@ -160,6 +170,8 @@ MonoBehaviour:
   DamageMultiplier: 1.44
   SpeedMultiplier: 1.11
   Armor: 0
+  BonusHealth: 0
+  BonusRegen: 0
   lines: 2
   lineText:
   - x1.44 Damage
@@ -313,11 +325,17 @@ MonoBehaviour:
   EqTooltip: Lower Body
   DamageMultiplier: 0
   SpeedMultiplier: 0
-  Armor: 7
-  lines: 1
+  Armor: 8
+  BonusHealth: 5
+  BonusRegen: 0.1
+  lines: 3
   lineText:
-  - 7 Armor
+  - 8 Armor
+  - +5 Health
+  - +0.1 Regen
   lineColor:
+  - {r: 0.49019608, g: 0.98039216, b: 0.49019608, a: 1}
+  - {r: 0.49019608, g: 0.98039216, b: 0.49019608, a: 1}
   - {r: 0.49019608, g: 0.98039216, b: 0.49019608, a: 1}
 --- !u!1 &4826441317997674299
 GameObject:
@@ -432,6 +450,8 @@ MonoBehaviour:
   DamageMultiplier: 1.72
   SpeedMultiplier: 1.16
   Armor: 0
+  BonusHealth: 0
+  BonusRegen: 0
   lines: 2
   lineText:
   - x1.72 Damage

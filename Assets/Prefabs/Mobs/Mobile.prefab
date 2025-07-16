@@ -211,9 +211,10 @@ GameObject:
   - component: {fileID: 595146439847610994}
   - component: {fileID: 699976750466405336}
   - component: {fileID: 1330248837476738142}
+  - component: {fileID: 292843208615226432}
   m_Layer: 0
   m_Name: Mobile
-  m_TagString: Untagged
+  m_TagString: Mobile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -266,6 +267,7 @@ MonoBehaviour:
   fading: 0
   alive: 1
   fighting: 0
+  perishing: 0
   spawner: 0
   DistancePoint: {fileID: 1314625427675195925}
   DistanceRotation: {fileID: 7818346682882753316}
@@ -283,6 +285,7 @@ MonoBehaviour:
   DisplayObject: {fileID: 7003790179688884701, guid: e651ebc8c709c7b4c80ca213246c3c00, type: 3}
   Body: {fileID: 1330248837476738142}
   Origin: {fileID: 2791670373695222008}
+  collide: {fileID: 292843208615226432}
   mobDropCount: 0
   dropID: 
   maxDrops: 
@@ -314,6 +317,41 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!58 &292843208615226432
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3188614149645613623}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.2
 --- !u!1 &3376938672579377533
 GameObject:
   m_ObjectHideFlags: 0

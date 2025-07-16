@@ -29,6 +29,7 @@ public class Resource : MonoBehaviour
     public SpriteRenderer Shadow;
     public Image ProgressBarFill, CatchUpFill;
     public TMPro.TextMeshProUGUI ProgressText;
+    public Collider2D collide;
     float fading;
 
     void Start()
@@ -111,6 +112,7 @@ public class Resource : MonoBehaviour
         PlayerScript.ResourceTargeted = null;
         PlayerScript.collecting = false;
         Shadow.color = new Color(0f, 0f, 0f, 0.49f);
+        collide.enabled = false;
 
         ProgressBarFill.fillAmount = 0f;
         ProgressText.text = "0/" + maxCollects.ToString("0");

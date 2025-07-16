@@ -29,7 +29,7 @@ public class Perks : MonoBehaviour
                 PerkEffectText[id].text = PlayerScript.attackDamage[0].ToString("0.0") + "-" + PlayerScript.attackDamage[1].ToString("0.0");
                 break;
             case 1:
-                PlayerScript.GainHP(25);
+                PlayerScript.GainHP(30);
                 break;
             case 2:
                 PlayerScript.goldIncrease += 0.02f;

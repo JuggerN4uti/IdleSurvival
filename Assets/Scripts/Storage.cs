@@ -22,7 +22,7 @@ public class Storage : MonoBehaviour
     [Header("Storage Screen")]
     public GameObject[] SlotObject;
     public Image[] SlotIcon, EqSlotIcon, WornIcon;
-    public TMPro.TextMeshProUGUI[] SlotAmountText, EqSlotAmountText;
+    public TMPro.TextMeshProUGUI[] SlotAmountText, EqSlotAmountText, LinesText;
     public TMPro.TextMeshProUGUI TooltipText, EqTooltipText;
     public Button[] SlotButton;
 
@@ -147,16 +147,18 @@ public class Storage : MonoBehaviour
             gearWornID[eqSlot] = eqID[slot];
             eqCount[eqID[slot]]--;
             CollectEq(eqUnequipped, false);
+            LoseStats(eqUnequipped);
+            GainStats(eqID[slot]);
         }
         else
         {
             gearEquiped[eqSlot] = true;
             gearWornID[eqSlot] = eqID[slot];
             eqCount[eqID[slot]]--;
+            GainStats(eqID[slot]);
         }
         DisplayEquipment();
         DisplayGear();
-        SetGearStats();
     }
 
     public void UnEquipGear(int slot)
@@ -165,7 +167,7 @@ public class Storage : MonoBehaviour
         gearEquiped[slot] = false;
         DisplayEquipment();
         DisplayGear();
-        SetGearStats();
+        LoseStats(gearWornID[slot]);
     }
 
     void DisplayGear()
@@ -178,6 +180,44 @@ public class Storage : MonoBehaviour
                 WornIcon[i].sprite = ELib.EqItems[gearWornID[i]].EqSprite;
             }
             else WornIcon[i].enabled = false;
+        }
+    }
+
+    void GainStats(int eqID)
+    {
+        if (ELib.EqItems[eqID].eqType == 0)
+        {
+            PlayerScript.weaponDamage = ELib.EqItems[eqID].DamageMultiplier;
+            PlayerScript.weaponRate = ELib.EqItems[eqID].SpeedMultiplier;
+        }
+        else if (ELib.EqItems[eqID].eqType == 0)
+        {
+            // potem
+        }
+        else
+        {
+            PlayerScript.armor += ELib.EqItems[eqID].Armor;
+            PlayerScript.GainHP(ELib.EqItems[eqID].BonusHealth);
+            PlayerScript.regeneration += ELib.EqItems[eqID].BonusRegen;
+        }
+    }
+
+    void LoseStats(int eqID)
+    {
+        if (ELib.EqItems[eqID].eqType == 0)
+        {
+            PlayerScript.weaponDamage = 1.0f;
+            PlayerScript.weaponRate = 1.0f;
+        }
+        else if (ELib.EqItems[eqID].eqType == 0)
+        {
+            // potem
+        }
+        else
+        {
+            PlayerScript.armor -= ELib.EqItems[eqID].Armor;
+            PlayerScript.LoseHP(ELib.EqItems[eqID].BonusHealth);
+            PlayerScript.regeneration -= ELib.EqItems[eqID].BonusRegen;
         }
     }
 
@@ -207,8 +247,23 @@ public class Storage : MonoBehaviour
         if (eq)
         {
             if (worn)
-                EqTooltipText.text = ELib.EqItems[gearWornID[slot]].EqTooltip; //potem reszte stat
-            else EqTooltipText.text = ELib.EqItems[eqID[slot]].EqTooltip; //potem reszte stat
+            {
+                EqTooltipText.text = ELib.EqItems[gearWornID[slot]].EqTooltip;
+                for (int i = 0; i < ELib.EqItems[gearWornID[slot]].lines; i++)
+                {
+                    LinesText[i].text = ELib.EqItems[gearWornID[slot]].lineText[i];
+                    LinesText[i].color = ELib.EqItems[gearWornID[slot]].lineColor[i];
+                }
+            }
+            else
+            {
+                EqTooltipText.text = ELib.EqItems[eqID[slot]].EqTooltip;
+                for (int i = 0; i < ELib.EqItems[eqID[slot]].lines; i++)
+                {
+                    LinesText[i].text = ELib.EqItems[eqID[slot]].lineText[i];
+                    LinesText[i].color = ELib.EqItems[eqID[slot]].lineColor[i];
+                }
+            }
         }
         else TooltipText.text = ILib.Items[itemsID[slot]].itemTooltip;
     }
@@ -217,5 +272,9 @@ public class Storage : MonoBehaviour
     {
         TooltipText.text = "";
         EqTooltipText.text = "";
+        for (int i = 0; i < LinesText.Length; i++)
+        {
+            LinesText[i].text = "";
+        }
     }
 }
