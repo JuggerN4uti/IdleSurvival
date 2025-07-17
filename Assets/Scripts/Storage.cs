@@ -46,11 +46,11 @@ public class Storage : MonoBehaviour
         itemsCount[itemID] -= amount;
     }
 
-    public void CollectEq(int eqID, bool display = true)
+    public void CollectEq(int eqID, int amount, bool display = true)
     {
-        eqCount[eqID]++;
+        eqCount[eqID] += amount;
         if (display)
-            DisplayEq(eqID, 1);
+            DisplayEq(eqID, amount);
         if (PlayerScript.windowOpened[4])
             DisplayEquipment();
     }
@@ -127,10 +127,7 @@ public class Storage : MonoBehaviour
         switch (itemsID[slot])
         {
             case 1:
-                PlayerScript.RestoreHealth(10);
-                break;
-            case 3:
-                WoodcuttingScript.GainXP(6, false);
+                PlayerScript.RestoreHealth(15);
                 break;
         }
 
@@ -146,7 +143,7 @@ public class Storage : MonoBehaviour
             eqUnequipped = gearWornID[eqSlot];
             gearWornID[eqSlot] = eqID[slot];
             eqCount[eqID[slot]]--;
-            CollectEq(eqUnequipped, false);
+            CollectEq(eqUnequipped, 1, false);
             LoseStats(eqUnequipped);
             GainStats(eqID[slot]);
         }
@@ -163,7 +160,7 @@ public class Storage : MonoBehaviour
 
     public void UnEquipGear(int slot)
     {
-        CollectEq(gearWornID[slot], false);
+        CollectEq(gearWornID[slot], 1, false);
         gearEquiped[slot] = false;
         DisplayEquipment();
         DisplayGear();

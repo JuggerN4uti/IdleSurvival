@@ -17,11 +17,13 @@ public class Crafting : MonoBehaviour
     public bool[] eqMaterial;
     public int[] materialID, materialRequired;
     public int timeRequired;
+    public int number;
     int minutes;
     bool enough;
 
     [Header("Crafting Progress")]
     public int recipeCrafted;
+    public int craftedNumber;
     public float duration, timeLeft;
     bool craftingInProgress;
 
@@ -53,6 +55,7 @@ public class Crafting : MonoBehaviour
 
     void SetRecipe()
     {
+        number = 1;
         for (int i = 0; i < 6; i++)
         {
             MaterialObject[i].SetActive(false);
@@ -61,7 +64,7 @@ public class Crafting : MonoBehaviour
         }
 
         differentMaterials = CLib.Recipes[recpie].uniqueMaterials;
-        timeRequired = CLib.Recipes[recpie].craftDuration;
+        timeRequired = CLib.Recipes[recpie].craftDuration * number;
         TimerText.text = CalculatedTime(timeRequired);
         if (CLib.Recipes[recpie].eqItem)
         {
@@ -110,8 +113,8 @@ public class Crafting : MonoBehaviour
             }
             else
             {
-                MaterialAmountText[i].text = StorageScript.itemsCount[materialID[i]].ToString("0") + "/" + materialRequired[i].ToString("0");
-                if (StorageScript.itemsCount[materialID[i]] >= materialRequired[i])
+                MaterialAmountText[i].text = StorageScript.itemsCount[materialID[i]].ToString("0") + "/" + MaterialRequired(i).ToString("0");
+                if (StorageScript.itemsCount[materialID[i]] >= MaterialRequired(i))
                     MaterialAmountText[i].color = new Color(1f, 1f, 1f, 1f);
                 else
                 {
@@ -135,19 +138,48 @@ public class Crafting : MonoBehaviour
         else return (seconds.ToString("0") + "s");
     }
 
+    int MaterialRequired(int id)
+    {
+        return materialRequired[id] * number;
+    }
+
     public void Craft()
     {
         for (int i = 0; i < differentMaterials; i++)
         {
             if (eqMaterial[i])
-                StorageScript.UseEq(materialID[i], materialRequired[i]);
-            else StorageScript.UseItem(materialID[i], materialRequired[i]);
+                StorageScript.UseEq(materialID[i], MaterialRequired(i));
+            else StorageScript.UseItem(materialID[i], MaterialRequired(i));
         }
         recipeCrafted = recpie;
+        craftedNumber = number;
         duration = timeRequired;
         timeLeft = duration;
         CraftingProgress.fillAmount = 1f;
         craftingInProgress = true;
+        DisplayRecipe();
+    }
+
+    public void UpTheNumber()
+    {
+        number++;
+
+        timeRequired = CLib.Recipes[recpie].craftDuration * number;
+        TimerText.text = CalculatedTime(timeRequired);
+        CraftedAmount.text = "x" + (CLib.Recipes[recpie].craftedCount * number).ToString("0");
+
+        DisplayRecipe();
+    }
+
+    public void DownTheNumber()
+    {
+        if (number > 1)
+            number--;
+
+        timeRequired = CLib.Recipes[recpie].craftDuration * number;
+        TimerText.text = CalculatedTime(timeRequired);
+        CraftedAmount.text = "x" + (CLib.Recipes[recpie].craftedCount * number).ToString("0");
+
         DisplayRecipe();
     }
 
@@ -158,7 +190,7 @@ public class Crafting : MonoBehaviour
         DisplayRecipe();
 
         if (CLib.Recipes[recipeCrafted].eqItem)
-            StorageScript.CollectEq(CLib.Recipes[recipeCrafted].craftedID);
-        else StorageScript.CollectItem(CLib.Recipes[recipeCrafted].craftedID, CLib.Recipes[recipeCrafted].craftedCount);
+            StorageScript.CollectEq(CLib.Recipes[recipeCrafted].craftedID, CLib.Recipes[recipeCrafted].craftedCount * craftedNumber);
+        else StorageScript.CollectItem(CLib.Recipes[recipeCrafted].craftedID, CLib.Recipes[recipeCrafted].craftedCount * craftedNumber);
     }
 }

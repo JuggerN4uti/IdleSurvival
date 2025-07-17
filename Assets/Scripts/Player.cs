@@ -436,7 +436,7 @@ public class Player : MonoBehaviour
                 FinderScript.PlayerScript = this;
                 FinderScript.taskFinderID = 0;
             }
-            Invoke("AutoCombat", 3f);
+            Invoke("AutoCombat", 2f);
         }
     }
 
@@ -451,7 +451,7 @@ public class Player : MonoBehaviour
                 FinderScript.PlayerScript = this;
                 FinderScript.taskFinderID = 1;
             }
-            Invoke("AutoCollect", 3f);
+            Invoke("AutoCollect", 2f);
         }
     }
 
