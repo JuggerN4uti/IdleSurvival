@@ -175,8 +175,17 @@ public class Player : MonoBehaviour
     {
         //if (CombatScript.)
         temp = 1f / regeneration;
-        Invoke("Regen", temp);
-        RestoreHealth(1);
+        if (temp > 0.4f)
+        {
+            Invoke("Regen", temp);
+            RestoreHealth(1);
+        }
+        else
+        {
+            temp *= 2;
+            Invoke("Regen", temp);
+            RestoreHealth(2);
+        }
         //Invoke("Regen", 0.8f);
     }
 
@@ -236,7 +245,7 @@ public class Player : MonoBehaviour
         level++;
         LevelText.text = level.ToString("0");
         GainSP(1);
-        GainHP(20);
+        GainHP(25);
         minDamageBonus += 0.12f + level * 0.01f;
         maxDamageBonus += 0.22f + level * 0.01f;
         regeneration += 0.1f;
@@ -292,7 +301,7 @@ public class Player : MonoBehaviour
 
     public int CalculateExpReq(int level)
     {
-        return level * (level + 1) * 30 + level * 40;
+        return level * (level + 1) * 25 + level * 45;
     }
 
     public void TakeDamage(int amount)

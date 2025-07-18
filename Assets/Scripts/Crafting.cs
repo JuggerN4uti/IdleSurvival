@@ -134,7 +134,11 @@ public class Crafting : MonoBehaviour
         seconds -= minutes * 60;
 
         if (minutes > 0)
-            return (minutes.ToString("0") + "m\n" + seconds.ToString("0") + "s");
+        {
+            if (seconds == 0)
+                return (minutes.ToString("0") + "m");
+            else return (minutes.ToString("0") + "m\n" + seconds.ToString("0") + "s");
+        }
         else return (seconds.ToString("0") + "s");
     }
 

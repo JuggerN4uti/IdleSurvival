@@ -49,12 +49,12 @@ MonoBehaviour:
   EqTooltip: Head
   DamageMultiplier: 0
   SpeedMultiplier: 0
-  Armor: 6
+  Armor: 7
   BonusHealth: 15
   BonusRegen: 0
   lines: 2
   lineText:
-  - 6 Armor
+  - 7 Armor
   - +15 Health
   lineColor:
   - {r: 0.49019608, g: 0.98039216, b: 0.49019608, a: 1}
@@ -109,12 +109,12 @@ MonoBehaviour:
   DamageMultiplier: 0
   SpeedMultiplier: 0
   Armor: 10
-  BonusHealth: 25
+  BonusHealth: 30
   BonusRegen: 0.1
   lines: 3
   lineText:
   - 10 Armor
-  - +25 Health
+  - +30 Health
   - +0.1 Regen
   lineColor:
   - {r: 0.49019608, g: 0.98039216, b: 0.49019608, a: 1}
