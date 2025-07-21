@@ -26,7 +26,7 @@ public class Player : MonoBehaviour
     public bool fighting;
     public float attackRange;
     public float[] attackDamage;
-    public float attackRate, attackCharge, critChance, critDamage;
+    public float attackRate, attackCharge, critChance, critDamage, lifeSteal;
     int taken;
     float damage;
     bool crited;
@@ -47,6 +47,7 @@ public class Player : MonoBehaviour
     public int skillPoints, totalSkillPoints;
     public int maxHealth, health;
     public float regeneration, minDamageBonus, maxDamageBonus, damageIncrease, speedIncrease, goldIncrease;
+    int tempi;
     float temp;
 
     [Header("Levels")]
@@ -155,6 +156,12 @@ public class Player : MonoBehaviour
         damage = Random.Range(attackDamage[0] + minDamageBonus, attackDamage[1] + maxDamageBonus);
         damage *= damageIncrease;
         damage *= weaponDamage;
+        if (PerksScript.crushingBlow)
+        {
+            damage *= 1.42f;
+            PerksScript.crushingBlow = false;
+            PerksScript.Invoke("CrushingBlowCooldown", 8f);
+        }
         if (critChance >= Random.Range(0f, 1f))
         {
             damage *= critDamage;
@@ -163,6 +170,9 @@ public class Player : MonoBehaviour
         else crited = false;
 
         MobileTargeted.DamageMob(damage, crited);
+        tempi = Mathf.RoundToInt(damage * lifeSteal);
+        if (tempi > 0)
+            RestoreHealth(tempi);
     }
 
     void DoTask()
@@ -248,7 +258,7 @@ public class Player : MonoBehaviour
         GainHP(25);
         minDamageBonus += 0.12f + level * 0.01f;
         maxDamageBonus += 0.22f + level * 0.01f;
-        regeneration += 0.1f;
+        GainRegen(0.1f);
         expRequired = CalculateExpReq(level);
         GainXP(0);
     }
@@ -285,6 +295,16 @@ public class Player : MonoBehaviour
 
         HealthBarFill.fillAmount = HealthPercent();
         HealthText.text = health.ToString("0") + "/" + maxHealth.ToString("0");
+    }
+
+    public void GainRegen(float amount)
+    {
+        regeneration += amount;
+        if (PerksScript.DamageFromRegen)
+        {
+            attackDamage[0] += amount;
+            attackDamage[1] += amount;
+        }
     }
 
     public void LoseHP(int amount)
