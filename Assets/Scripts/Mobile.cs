@@ -9,6 +9,7 @@ public class Mobile : MonoBehaviour
     public Player PlayerScript;
     public Combat CombatScript;
     public CombatLibrary CLib;
+    public Island IslandScript;
 
     [Header("Stats")]
     public int unitID;
@@ -206,6 +207,8 @@ public class Mobile : MonoBehaviour
 
         if (killed)
         {
+            if (IslandScript)
+                IslandScript.MobSlained();
             PlayerScript.GainXP(Random.Range(expRange[0], expRange[1] + 1));
             PlayerScript.GainGold(Random.Range(goldRange[0], goldRange[1] + 1));
             Drops();

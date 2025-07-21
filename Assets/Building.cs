@@ -14,7 +14,7 @@ public class Building : MonoBehaviour
 
     [Header("Objects")]
     public GameObject DeactivateObject;
-    public GameObject ActivateObject;
+    public GameObject[] ActivateObject;
 
     public void Clicked()
     {
@@ -34,7 +34,10 @@ public class Building : MonoBehaviour
         {
             StorageScript.UseItem(materialID[i], materialCount[i]);
         }
+        for (int i = 0; i < ActivateObject.Length; i++)
+        {
+            ActivateObject[i].SetActive(true);
+        }
         DeactivateObject.SetActive(false);
-        ActivateObject.SetActive(true);
     }
 }

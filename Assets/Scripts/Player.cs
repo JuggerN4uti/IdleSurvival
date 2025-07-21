@@ -301,7 +301,7 @@ public class Player : MonoBehaviour
 
     public int CalculateExpReq(int level)
     {
-        return level * (level + 1) * 25 + level * 45;
+        return level * (level + 1) * 25 + level * 50;
     }
 
     public void TakeDamage(int amount)
