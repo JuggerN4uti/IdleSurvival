@@ -23,6 +23,15 @@ public class Island : MonoBehaviour
     public int killsRequired;
     public int killed;
     public TMPro.TextMeshProUGUI SlainText;
+    public Button PortalButton;
+    public Image PortalImage;
+    public Sprite OpenedSprite;
+    public bool opened;
+
+    [Header("Islands")]
+    public GameObject ThisIsland;
+    public GameObject NextIsland, PreviousIsland;
+    public Vector3 NextPlace, PreviousPlace;
 
     void Start()
     {
@@ -104,14 +113,36 @@ public class Island : MonoBehaviour
 
     public void MobSlained()
     {
-        killed++;
-        if (killed >= killsRequired)
-            UnlockNextStage();
-        else SlainText.text = killed.ToString("0") + "/" + killsRequired.ToString("0");
+        if (!opened)
+        {
+            killed++;
+            if (killed >= killsRequired)
+                UnlockNextStage();
+            else SlainText.text = killed.ToString("0") + "/" + killsRequired.ToString("0");
+        }
     }
 
     void UnlockNextStage()
     {
+        opened = true;
+        SlainText.text = "";
+        PortalButton.interactable = true;
+        PortalImage.sprite = OpenedSprite;
+    }
 
+    public void TravelToNextStage()
+    {
+        NextIsland.SetActive(true);
+        PlayerScript.transform.position = NextPlace;
+        PlayerScript.movePos = NextPlace;
+        ThisIsland.SetActive(false);
+    }
+
+    public void TravelToPreviousStage()
+    {
+        PreviousIsland.SetActive(true);
+        PlayerScript.transform.position = PreviousPlace;
+        PlayerScript.movePos = PreviousPlace;
+        ThisIsland.SetActive(false);
     }
 }
