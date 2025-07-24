@@ -6,23 +6,33 @@ using UnityEngine.EventSystems;
 public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public Storage StorageScript;
+    public Smelting SmeltingScript;
     public int slotId;
-    public bool eq, worn;
+    public bool eq, worn, furnace;
 
     public void Clicked()
     {
-        if (eq)
-            StorageScript.EqSlotClicked(slotId);
-        else StorageScript.SlotClicked(slotId);
+        if (furnace)
+        {
+            SmeltingScript.SlotClicked(slotId);
+        }
+        else
+        {
+            if (eq)
+                StorageScript.EqSlotClicked(slotId);
+            else StorageScript.SlotClicked(slotId);
+        }
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        StorageScript.SlotHovered(slotId, eq, worn);
+        if (!furnace)
+            StorageScript.SlotHovered(slotId, eq, worn);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        StorageScript.Unhovered();
+        if (!furnace)
+            StorageScript.Unhovered();
     }
 }

@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
 {
     [Header("Scripts")]
     public Storage StorageScript;
+    public Smelting SmeltingScript;
     public Upgrades UpgradesScript;
     public Perks PerksScript;
     public Combat CombatScript;
@@ -379,6 +380,9 @@ public class Player : MonoBehaviour
                     break;
                 case 4:
                     StorageScript.DisplayEquipment();
+                    break;
+                case 5:
+                    SmeltingScript.DisplayStorage();
                     break;
             }
         }

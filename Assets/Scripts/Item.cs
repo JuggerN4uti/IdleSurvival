@@ -6,6 +6,8 @@ public class Item : MonoBehaviour
 {
     [Header("Info")]
     public Sprite ItemSprite;
-    public bool consumable;
+    public bool consumable, smeltable, fuel;
+    public int smeltedID;
+    public float furnaceTimer;
     public string itemTooltip;
 }

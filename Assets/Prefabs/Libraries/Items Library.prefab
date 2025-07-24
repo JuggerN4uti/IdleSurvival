@@ -46,6 +46,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: 06b16900645706e4e8b37ee8e8d317e4, type: 3}
   consumable: 0
+  smeltable: 0
+  fuel: 0
+  smeltedID: 0
+  furnaceTimer: 0
   itemTooltip: Stick - used in crafting
 --- !u!1 &892129390527135781
 GameObject:
@@ -93,6 +97,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: 721ae1d74624233448b10b702268acdb, type: 3}
   consumable: 0
+  smeltable: 0
+  fuel: 0
+  smeltedID: 0
+  furnaceTimer: 0
   itemTooltip: Rope - used in crafting
 --- !u!1 &1117162637637185955
 GameObject:
@@ -140,6 +148,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: 14293a7d02efe5441aacebf7ceb75b13, type: 3}
   consumable: 0
+  smeltable: 0
+  fuel: 0
+  smeltedID: 0
+  furnaceTimer: 0
   itemTooltip: Rock - used in crafting
 --- !u!1 &1803518620304921388
 GameObject:
@@ -187,6 +199,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: eac388c23186f0f498e066e35b36d796, type: 3}
   consumable: 0
+  smeltable: 0
+  fuel: 1
+  smeltedID: 0
+  furnaceTimer: 4
   itemTooltip: Wood - used in crafting
 --- !u!1 &2646868630277283356
 GameObject:
@@ -234,6 +250,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: 48620d34cad711b4fac0ac9c336ea268, type: 3}
   consumable: 0
+  smeltable: 0
+  fuel: 0
+  smeltedID: 0
+  furnaceTimer: 0
   itemTooltip: Copper Ingot - used in crafting
 --- !u!1 &3838290936589769637
 GameObject:
@@ -346,6 +366,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: 58639c5870f904c41bb62d3e41408376, type: 3}
   consumable: 0
+  smeltable: 0
+  fuel: 0
+  smeltedID: 0
+  furnaceTimer: 0
   itemTooltip: String - used in crafting
 --- !u!1 &6789957312670473557
 GameObject:
@@ -393,6 +417,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: 6ae0b2d414095fa4bbc6c898c2734b7f, type: 3}
   consumable: 0
+  smeltable: 1
+  fuel: 0
+  smeltedID: 7
+  furnaceTimer: 6
   itemTooltip: Raw Copper - ore to be smelted
 --- !u!1 &6825123407949027681
 GameObject:
@@ -440,6 +468,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: 6f45ee532bc051c45aed6b2204f20188, type: 3}
   consumable: 0
+  smeltable: 0
+  fuel: 0
+  smeltedID: 0
+  furnaceTimer: 0
   itemTooltip: Leather - used in crafting
 --- !u!1 &7043815571937284861
 GameObject:
@@ -487,6 +519,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: dde66718b3c234b4580d03607a5b3bce, type: 3}
   consumable: 1
+  smeltable: 0
+  fuel: 0
+  smeltedID: 0
+  furnaceTimer: 0
   itemTooltip: Apple - Restores 15HP on use
 --- !u!1 &7530381651114865775
 GameObject:
@@ -534,6 +570,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: b052dc7eb10c31e42920f9c0ae1a27fb, type: 3}
   consumable: 0
+  smeltable: 0
+  fuel: 0
+  smeltedID: 0
+  furnaceTimer: 0
   itemTooltip: Hewn Stone - used in crafting
 --- !u!1 &7569248499498633950
 GameObject:
@@ -581,4 +621,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: 13b75da6b96650c41a07001c27cab638, type: 3}
   consumable: 1
+  smeltable: 0
+  fuel: 0
+  smeltedID: 0
+  furnaceTimer: 0
   itemTooltip: Berries - Gives 6 XP in Woodcutting on use

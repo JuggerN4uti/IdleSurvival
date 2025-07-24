@@ -7,7 +7,7 @@ public class Storage : MonoBehaviour
 {
     [Header("Stats")]
     public Player PlayerScript;
-    public Woodcutting WoodcuttingScript;
+    public Smelting SmeltingScript;
     public ItemsLibrary ILib;
     public EquipmentLibrary ELib;
     public Crafting CraftingScript;
@@ -39,6 +39,8 @@ public class Storage : MonoBehaviour
             DisplayStorage();
         if (PlayerScript.windowOpened[3])
             CraftingScript.DisplayRecipe();
+        if (PlayerScript.windowOpened[5])
+            SmeltingScript.DisplayStorage();
     }
 
     public void UseItem(int itemID, int amount)
