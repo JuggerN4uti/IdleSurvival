@@ -122,23 +122,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1953420995597528248, guid: 05e00ffe2f0398b459d3f1b2ce16cdc8, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.8
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2259164652592121457, guid: 05e00ffe2f0398b459d3f1b2ce16cdc8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.8
+      value: 0.45
       objectReference: {fileID: 0}
     - target: {fileID: 2861148533890790839, guid: 05e00ffe2f0398b459d3f1b2ce16cdc8, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.4
+      value: 0.45
       objectReference: {fileID: 0}
     - target: {fileID: 3351211132364986839, guid: 05e00ffe2f0398b459d3f1b2ce16cdc8, type: 3}
       propertyPath: m_Color.a
       value: 0.003921569
       objectReference: {fileID: 0}
     - target: {fileID: 3440915816800663892, guid: 05e00ffe2f0398b459d3f1b2ce16cdc8, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3440915816800663892, guid: 05e00ffe2f0398b459d3f1b2ce16cdc8, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3440915816800663892, guid: 05e00ffe2f0398b459d3f1b2ce16cdc8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.9
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3809657361793442379, guid: 05e00ffe2f0398b459d3f1b2ce16cdc8, type: 3}
       propertyPath: m_Sprite

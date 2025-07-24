@@ -7,11 +7,12 @@ public class Resource : MonoBehaviour
 {
     [Header("Scripts")]
     public Player PlayerScript;
+    public Spawner SpawnerScript;
 
     [Header("Stats")]
     public bool infiniteResource;
     public int resourceType, maxCollects; // 0 - wood,
-    public int collectsLeft;
+    public int collectsLeft, spawnerID;
     public float catchUp;
     bool destroyed, perishing;
 
@@ -113,6 +114,9 @@ public class Resource : MonoBehaviour
         PlayerScript.collecting = false;
         Shadow.color = new Color(0f, 0f, 0f, 0.49f);
         collide.enabled = false;
+
+        if (SpawnerScript)
+            SpawnerScript.placeTaken[spawnerID] = false;
 
         ProgressBarFill.fillAmount = 0f;
         ProgressText.text = "0/" + maxCollects.ToString("0");
