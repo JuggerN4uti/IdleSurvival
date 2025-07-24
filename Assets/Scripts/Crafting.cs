@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class Crafting : MonoBehaviour
 {
     [Header("Scripts")]
+    public Player PlayerScript;
     public Storage StorageScript;
     public CraftingLibrary CLib;
     public ItemsLibrary ILib;
@@ -196,5 +197,7 @@ public class Crafting : MonoBehaviour
         if (CLib.Recipes[recipeCrafted].eqItem)
             StorageScript.CollectEq(CLib.Recipes[recipeCrafted].craftedID, CLib.Recipes[recipeCrafted].craftedCount * craftedNumber);
         else StorageScript.CollectItem(CLib.Recipes[recipeCrafted].craftedID, CLib.Recipes[recipeCrafted].craftedCount * craftedNumber);
+
+        PlayerScript.GainXP(CLib.Recipes[recipeCrafted].craftedXP * craftedNumber);
     }
 }

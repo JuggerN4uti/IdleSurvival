@@ -49,6 +49,7 @@ MonoBehaviour:
   smeltable: 0
   fuel: 0
   smeltedID: 0
+  smeltedXP: 0
   furnaceTimer: 0
   itemTooltip: Stick - used in crafting
 --- !u!1 &892129390527135781
@@ -100,6 +101,7 @@ MonoBehaviour:
   smeltable: 0
   fuel: 0
   smeltedID: 0
+  smeltedXP: 0
   furnaceTimer: 0
   itemTooltip: Rope - used in crafting
 --- !u!1 &1117162637637185955
@@ -151,6 +153,7 @@ MonoBehaviour:
   smeltable: 0
   fuel: 0
   smeltedID: 0
+  smeltedXP: 0
   furnaceTimer: 0
   itemTooltip: Rock - used in crafting
 --- !u!1 &1803518620304921388
@@ -202,6 +205,7 @@ MonoBehaviour:
   smeltable: 0
   fuel: 1
   smeltedID: 0
+  smeltedXP: 0
   furnaceTimer: 4
   itemTooltip: Wood - used in crafting
 --- !u!1 &2646868630277283356
@@ -253,6 +257,7 @@ MonoBehaviour:
   smeltable: 0
   fuel: 0
   smeltedID: 0
+  smeltedXP: 0
   furnaceTimer: 0
   itemTooltip: Copper Ingot - used in crafting
 --- !u!1 &3838290936589769637
@@ -369,6 +374,7 @@ MonoBehaviour:
   smeltable: 0
   fuel: 0
   smeltedID: 0
+  smeltedXP: 0
   furnaceTimer: 0
   itemTooltip: String - used in crafting
 --- !u!1 &6789957312670473557
@@ -420,6 +426,7 @@ MonoBehaviour:
   smeltable: 1
   fuel: 0
   smeltedID: 7
+  smeltedXP: 3
   furnaceTimer: 6
   itemTooltip: Raw Copper - ore to be smelted
 --- !u!1 &6825123407949027681
@@ -471,6 +478,7 @@ MonoBehaviour:
   smeltable: 0
   fuel: 0
   smeltedID: 0
+  smeltedXP: 0
   furnaceTimer: 0
   itemTooltip: Leather - used in crafting
 --- !u!1 &7043815571937284861
@@ -522,6 +530,7 @@ MonoBehaviour:
   smeltable: 0
   fuel: 0
   smeltedID: 0
+  smeltedXP: 0
   furnaceTimer: 0
   itemTooltip: Apple - Restores 15HP on use
 --- !u!1 &7530381651114865775
@@ -573,6 +582,7 @@ MonoBehaviour:
   smeltable: 0
   fuel: 0
   smeltedID: 0
+  smeltedXP: 0
   furnaceTimer: 0
   itemTooltip: Hewn Stone - used in crafting
 --- !u!1 &7569248499498633950
@@ -624,5 +634,6 @@ MonoBehaviour:
   smeltable: 0
   fuel: 0
   smeltedID: 0
+  smeltedXP: 0
   furnaceTimer: 0
   itemTooltip: Berries - Gives 6 XP in Woodcutting on use

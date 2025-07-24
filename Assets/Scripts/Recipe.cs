@@ -12,5 +12,5 @@ public class Recipe : MonoBehaviour
     public int uniqueMaterials;
     public bool[] eqMaterial;
     public int[] materialID, materialCount;
-    public int craftDuration;
+    public int craftDuration, craftedXP;
 }

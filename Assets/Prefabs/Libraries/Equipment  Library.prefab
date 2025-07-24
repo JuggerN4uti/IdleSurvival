@@ -447,15 +447,15 @@ MonoBehaviour:
   eqType: 0
   EqSprite: {fileID: 21300000, guid: dadaf0c0258d93d4baad94b52b68b6de, type: 3}
   EqTooltip: Weapon
-  DamageMultiplier: 1.72
-  SpeedMultiplier: 1.16
+  DamageMultiplier: 1.78
+  SpeedMultiplier: 1.18
   Armor: 0
   BonusHealth: 0
   BonusRegen: 0
   lines: 2
   lineText:
-  - x1.72 Damage
-  - x1.16 Attack Rate
+  - x1.78 Damage
+  - x1.18 Attack Rate
   lineColor:
   - {r: 0.49019608, g: 0.98039216, b: 0.49019608, a: 1}
   - {r: 0.49019608, g: 0.98039216, b: 0.49019608, a: 1}

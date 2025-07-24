@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class Smelting : MonoBehaviour
 {
     [Header("Scripts")]
+    public Player PlayerScript;
     public Storage StorageScript;
     public ItemsLibrary ILib;
 
@@ -122,6 +123,7 @@ public class Smelting : MonoBehaviour
         }
         else SmeltingAmountText.text = smeltingCount.ToString("0");
         StorageScript.CollectItem(ILib.Items[smeltingID].smeltedID, 1);
+        PlayerScript.GainXP(ILib.Items[smeltingID].smeltedXP);
     }
 
     float SmeltingPercent()

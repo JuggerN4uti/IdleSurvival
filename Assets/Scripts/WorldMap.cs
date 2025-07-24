@@ -7,9 +7,11 @@ public class WorldMap : MonoBehaviour
     [Header("Scripts")]
     public Player PlayerScript;
 
+    [Header("UI")]
     public GameObject WorldScreenObject;
     public GameObject[] PlayerIconObject, IslandObject;
-    public Vector3[] IslandSpawnPoint;
+    public GameObject CameraObject;
+    public Vector3[] IslandSpawnPoint, CameraPoint;
 
     public void Set(int playerLocation)
     {
@@ -26,6 +28,7 @@ public class WorldMap : MonoBehaviour
         PlayerScript.island = island;
         IslandObject[island].SetActive(true);
         PlayerScript.transform.position = IslandSpawnPoint[island];
+        CameraObject.transform.position = CameraPoint[island];
         PlayerScript.movePos = IslandSpawnPoint[island];
         WorldScreenObject.SetActive(false);
     }

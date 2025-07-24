@@ -31,7 +31,8 @@ public class Island : MonoBehaviour
     [Header("Islands")]
     public GameObject ThisIsland;
     public GameObject NextIsland, PreviousIsland;
-    public Vector3 NextPlace, PreviousPlace;
+    public GameObject CameraObject;
+    public Vector3 NextPlace, PreviousPlace, NextCameraPlacement, PreviousCameraPlacement;
 
     void Start()
     {
@@ -135,6 +136,7 @@ public class Island : MonoBehaviour
         NextIsland.SetActive(true);
         PlayerScript.transform.position = NextPlace;
         PlayerScript.movePos = NextPlace;
+        CameraObject.transform.position = NextCameraPlacement;
         ThisIsland.SetActive(false);
     }
 
@@ -143,6 +145,7 @@ public class Island : MonoBehaviour
         PreviousIsland.SetActive(true);
         PlayerScript.transform.position = PreviousPlace;
         PlayerScript.movePos = PreviousPlace;
+        CameraObject.transform.position = PreviousCameraPlacement;
         ThisIsland.SetActive(false);
     }
 }

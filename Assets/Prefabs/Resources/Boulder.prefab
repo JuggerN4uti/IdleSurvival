@@ -13,6 +13,10 @@ PrefabInstance:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 991493097479129886, guid: 05e00ffe2f0398b459d3f1b2ce16cdc8, type: 3}
+      propertyPath: bonusDropID
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 991493097479129886, guid: 05e00ffe2f0398b459d3f1b2ce16cdc8, type: 3}
       propertyPath: maxCollects
       value: 6
       objectReference: {fileID: 0}
@@ -25,7 +29,15 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 991493097479129886, guid: 05e00ffe2f0398b459d3f1b2ce16cdc8, type: 3}
+      propertyPath: bonusDropChance
+      value: 22
+      objectReference: {fileID: 0}
+    - target: {fileID: 991493097479129886, guid: 05e00ffe2f0398b459d3f1b2ce16cdc8, type: 3}
       propertyPath: dropsPerCollectCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 991493097479129886, guid: 05e00ffe2f0398b459d3f1b2ce16cdc8, type: 3}
+      propertyPath: increaseChancePerLevel
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 991493097479129886, guid: 05e00ffe2f0398b459d3f1b2ce16cdc8, type: 3}

@@ -111,6 +111,7 @@ MonoBehaviour:
   materialID: 0500000002000000
   materialCount: 0500000006000000
   craftDuration: 15
+  craftedXP: 10
 --- !u!1 &1953718215020971910
 GameObject:
   m_ObjectHideFlags: 0
@@ -163,6 +164,7 @@ MonoBehaviour:
   materialID: 00000000
   materialCount: 0a000000
   craftDuration: 15
+  craftedXP: 3
 --- !u!1 &3638674352472225355
 GameObject:
   m_ObjectHideFlags: 0
@@ -210,11 +212,12 @@ MonoBehaviour:
   eqItem: 1
   craftedID: 4
   craftedCount: 1
-  uniqueMaterials: 2
-  eqMaterial: 0100
-  materialID: 0000000008000000
-  materialCount: 0100000004000000
+  uniqueMaterials: 3
+  eqMaterial: 010000
+  materialID: 000000000800000003000000
+  materialCount: 010000000500000002000000
   craftDuration: 30
+  craftedXP: 13
 --- !u!1 &4028541004463522969
 GameObject:
   m_ObjectHideFlags: 0
@@ -267,6 +270,7 @@ MonoBehaviour:
   materialID: 0500000002000000
   materialCount: 0600000004000000
   craftDuration: 15
+  craftedXP: 12
 --- !u!1 &5090779822936925859
 GameObject:
   m_ObjectHideFlags: 0
@@ -319,6 +323,7 @@ MonoBehaviour:
   materialID: 04000000
   materialCount: 03000000
   craftDuration: 10
+  craftedXP: 2
 --- !u!1 &5252036317970142027
 GameObject:
   m_ObjectHideFlags: 0
@@ -371,6 +376,7 @@ MonoBehaviour:
   materialID: 0500000002000000
   materialCount: 0300000003000000
   craftDuration: 15
+  craftedXP: 8
 --- !u!1 &8544352632598987562
 GameObject:
   m_ObjectHideFlags: 0
@@ -423,3 +429,4 @@ MonoBehaviour:
   materialID: 02000000
   materialCount: 03000000
   craftDuration: 25
+  craftedXP: 4
