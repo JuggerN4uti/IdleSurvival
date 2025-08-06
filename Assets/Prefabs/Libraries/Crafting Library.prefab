@@ -37,6 +37,7 @@ Transform:
   - {fileID: 5295841548126674461}
   - {fileID: 4778725169368702334}
   - {fileID: 7656184892663553418}
+  - {fileID: 7051694031900566189}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8378758645097856973
@@ -59,6 +60,7 @@ MonoBehaviour:
   - {fileID: 7537365338604338583}
   - {fileID: 5520509242453991966}
   - {fileID: 798961586106531883}
+  - {fileID: 246176028302187975}
 --- !u!1 &1726340049788994607
 GameObject:
   m_ObjectHideFlags: 0
@@ -123,7 +125,7 @@ GameObject:
   - component: {fileID: 3984064044432412513}
   - component: {fileID: 3983711325764898195}
   m_Layer: 0
-  m_Name: Wooden Sword Recipe
+  m_Name: Wooden Stick Recipe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -176,7 +178,7 @@ GameObject:
   - component: {fileID: 4778725169368702334}
   - component: {fileID: 5520509242453991966}
   m_Layer: 0
-  m_Name: Stone Sword Recipe
+  m_Name: Stone Knife Recipe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -271,6 +273,59 @@ MonoBehaviour:
   materialCount: 0600000004000000
   craftDuration: 15
   craftedXP: 12
+--- !u!1 &5017367423870072614
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7051694031900566189}
+  - component: {fileID: 246176028302187975}
+  m_Layer: 0
+  m_Name: Stone Spear  Recipe
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7051694031900566189
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5017367423870072614}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1438575868450093027}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &246176028302187975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5017367423870072614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 743a796cfc16eea478ff6e3245aa80c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eqItem: 1
+  craftedID: 5
+  craftedCount: 1
+  uniqueMaterials: 3
+  eqMaterial: 010100
+  materialID: 000000000400000003000000
+  materialCount: 010000000100000002000000
+  craftDuration: 50
+  craftedXP: 16
 --- !u!1 &5090779822936925859
 GameObject:
   m_ObjectHideFlags: 0
@@ -282,7 +337,7 @@ GameObject:
   - component: {fileID: 7656184892663553418}
   - component: {fileID: 798961586106531883}
   m_Layer: 0
-  m_Name: Hewn Stone
+  m_Name: Hewn Stone  Recipe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

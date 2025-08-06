@@ -25,6 +25,7 @@ public class WorldMap : MonoBehaviour
     public void SelectIsland(int island)
     {
         IslandObject[PlayerScript.island].SetActive(false);
+        PlayerScript.ChangeTask();
         PlayerScript.island = island;
         IslandObject[island].SetActive(true);
         PlayerScript.transform.position = IslandSpawnPoint[island];

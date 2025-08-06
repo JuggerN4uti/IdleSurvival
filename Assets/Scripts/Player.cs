@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     [Header("Scripts")]
     public Storage StorageScript;
     public Smelting SmeltingScript;
+    public Milestones MilestonesScript;
     public Upgrades UpgradesScript;
     public Perks PerksScript;
     public Combat CombatScript;
@@ -27,7 +28,7 @@ public class Player : MonoBehaviour
     public bool fighting;
     public float attackRange;
     public float[] attackDamage;
-    public float attackRate, attackCharge, critChance, critDamage, lifeSteal;
+    public float attackRate, attackCharge, dodgeChance, critChance, critDamage, lifeSteal;
     int taken;
     float damage;
     bool crited;
@@ -47,9 +48,13 @@ public class Player : MonoBehaviour
     public int gold;
     public int skillPoints, totalSkillPoints;
     public int maxHealth, health;
-    public float regeneration, minDamageBonus, maxDamageBonus, damageIncrease, speedIncrease, goldIncrease;
+    public float regeneration, damageIncrease, speedIncrease, goldIncrease;
     int tempi;
     float temp;
+
+    [Header("Attributes")]
+    public int vitality;
+    public int strength, dexterity, resilience, luck; 
 
     [Header("Levels")]
     public int level;
@@ -58,7 +63,7 @@ public class Player : MonoBehaviour
 
     [Header("Equipment Stats")]
     public float weaponDamage;
-    public float weaponRate;
+    public float weaponRate, weaponCrit, weaponRange;
     public int armor;
 
     [Header("UI")]
@@ -94,8 +99,8 @@ public class Player : MonoBehaviour
         Invoke("Regen", 1f);
         if (bonusActive)
         {
-            GainXP(bonusXP);
-            GainGold(bonusGold);
+            GainXP(bonusXP / 5);
+            GainGold(bonusGold / 5);
         }
     }
 
@@ -112,7 +117,7 @@ public class Player : MonoBehaviour
         }
         if (fighting)
         {
-            if (Vector3.Distance(transform.position, MobileTargeted.transform.position) > attackRange)
+            if (Vector3.Distance(transform.position, MobileTargeted.transform.position) > AttackRange())
                 transform.position = Vector2.MoveTowards(transform.position, MobileTargeted.transform.position, movementSpeed * Time.deltaTime);
             else
             {
@@ -154,7 +159,7 @@ public class Player : MonoBehaviour
         moving = false;
         movePos = transform.position;
 
-        damage = Random.Range(attackDamage[0] + minDamageBonus, attackDamage[1] + maxDamageBonus);
+        damage = Random.Range(attackDamage[0], attackDamage[1]);
         damage *= damageIncrease;
         damage *= weaponDamage;
         if (PerksScript.crushingBlow)
@@ -163,7 +168,7 @@ public class Player : MonoBehaviour
             PerksScript.crushingBlow = false;
             PerksScript.Invoke("CrushingBlowCooldown", 8f);
         }
-        if (critChance >= Random.Range(0f, 1f))
+        if (CritChance() >= Random.Range(0f, 1f + CritChance()))
         {
             damage *= critDamage;
             crited = true;
@@ -229,6 +234,7 @@ public class Player : MonoBehaviour
         gold += amount;
         if (amount > 0)
             Display(amount, 1);
+        MilestonesScript.ProgressMilestone(0, amount);
         GoldText.text = gold.ToString("0");
         if (windowOpened[0])
             UpgradesScript.Check();
@@ -256,9 +262,7 @@ public class Player : MonoBehaviour
         level++;
         LevelText.text = level.ToString("0");
         GainSP(1);
-        GainHP(25);
-        minDamageBonus += 0.12f + level * 0.01f;
-        maxDamageBonus += 0.22f + level * 0.01f;
+        GainHP(10);
         GainRegen(0.1f);
         expRequired = CalculateExpReq(level);
         GainXP(0);
@@ -272,6 +276,37 @@ public class Player : MonoBehaviour
         collectingSpeed[which] += 0.03f;
         // switch task bla bla
         taskExpRequired[which] = CalculateExpReq(taskLevel[which]);
+    }
+
+    public void GainAttribute(int id, int amount)
+    {
+        switch (id)
+        {
+            case 0:
+                vitality += amount;
+                GainHP(20 * amount);
+                GainRegen(0.1f * amount);
+                break;
+            case 1:
+                strength += amount;
+                attackDamage[0] += amount;
+                attackDamage[1] += amount;
+                break;
+            case 2:
+                dexterity += amount;
+                attackRate += 0.005f * amount;
+                dodgeChance += 0.01f * amount;
+                break;
+            case 3:
+                resilience += amount;
+                armor += 2 * amount;
+                break;
+            case 4:
+                luck += amount;
+                critChance += 0.01f * amount;
+                critDamage += 0.01f * amount;
+                break;
+        }
     }
 
     public void GainSP(int amount)
@@ -322,7 +357,14 @@ public class Player : MonoBehaviour
 
     public int CalculateExpReq(int level)
     {
-        return level * (level + 1) * 25 + level * 50;
+        return level * (level + 1) * 20 + level * 60;
+    }
+
+    public bool Dodge()
+    {
+        if (dodgeChance >= Random.Range(0f, 1f + dodgeChance))
+            return true; // potem efekt dodga
+        else return false;
     }
 
     public void TakeDamage(int amount)
@@ -491,6 +533,16 @@ public class Player : MonoBehaviour
     float HealthPercent()
     {
         return (health * 1f) / (maxHealth * 1f);
+    }
+
+    float CritChance()
+    {
+        return critChance + weaponCrit;
+    }
+
+    float AttackRange()
+    {
+        return attackRange * weaponRange;
     }
 
     /*private void OnTriggerEnter2D(Collider2D other)

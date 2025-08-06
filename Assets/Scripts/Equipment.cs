@@ -11,7 +11,7 @@ public class Equipment : MonoBehaviour
 
     [Header("Weapon")]
     public float DamageMultiplier;
-    public float SpeedMultiplier;
+    public float SpeedMultiplier, CritChance, RangeMultiplier;
 
     [Header("Armor")]
     public int Armor;

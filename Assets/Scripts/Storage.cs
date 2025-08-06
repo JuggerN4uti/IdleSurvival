@@ -188,6 +188,8 @@ public class Storage : MonoBehaviour
         {
             PlayerScript.weaponDamage = ELib.EqItems[eqID].DamageMultiplier;
             PlayerScript.weaponRate = ELib.EqItems[eqID].SpeedMultiplier;
+            PlayerScript.weaponCrit = ELib.EqItems[eqID].CritChance;
+            PlayerScript.weaponRange = ELib.EqItems[eqID].RangeMultiplier;
         }
         else if (ELib.EqItems[eqID].eqType == 0)
         {
@@ -207,6 +209,8 @@ public class Storage : MonoBehaviour
         {
             PlayerScript.weaponDamage = 1.0f;
             PlayerScript.weaponRate = 1.0f;
+            PlayerScript.weaponCrit = 0f;
+            PlayerScript.weaponRange = 1f;
         }
         else if (ELib.EqItems[eqID].eqType == 0)
         {

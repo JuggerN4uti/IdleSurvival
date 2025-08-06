@@ -44,15 +44,13 @@ public class Perks : MonoBehaviour
         switch (Class, perkID)
         {
             case (0, 0):
-                PlayerScript.attackDamage[0] += 1f;
-                PlayerScript.attackDamage[1] += 1.2f;
+                PlayerScript.GainAttribute(1, 1);
                 break;
             case (0, 1):
-                PlayerScript.GainHP(20);
-                PlayerScript.GainRegen(0.1f);
+                PlayerScript.GainAttribute(0, 1);
                 break;
             case (0, 2):
-                PlayerScript.attackRate += 0.005f;
+                PlayerScript.GainAttribute(2, 1);
                 break;
             case (0, 3):
                 crushingBlow = true;

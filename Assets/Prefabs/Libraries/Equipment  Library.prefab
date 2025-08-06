@@ -49,6 +49,8 @@ MonoBehaviour:
   EqTooltip: Head
   DamageMultiplier: 0
   SpeedMultiplier: 0
+  CritChance: 0
+  RangeMultiplier: 0
   Armor: 7
   BonusHealth: 15
   BonusRegen: 0
@@ -108,6 +110,8 @@ MonoBehaviour:
   EqTooltip: Upper Body
   DamageMultiplier: 0
   SpeedMultiplier: 0
+  CritChance: 0
+  RangeMultiplier: 0
   Armor: 10
   BonusHealth: 30
   BonusRegen: 0.1
@@ -131,7 +135,7 @@ GameObject:
   - component: {fileID: 2817645765857466729}
   - component: {fileID: 5796382554876566691}
   m_Layer: 0
-  m_Name: Wooden Sword
+  m_Name: Wooden Stick
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -165,10 +169,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   eqType: 0
-  EqSprite: {fileID: 21300000, guid: 70aa61a223171d841aa2eeef0fd55286, type: 3}
+  EqSprite: {fileID: 21300000, guid: 8e86a2728d3a02a43af182385b5d11ee, type: 3}
   EqTooltip: Weapon
   DamageMultiplier: 1.44
   SpeedMultiplier: 1.11
+  CritChance: 0
+  RangeMultiplier: 1
   Armor: 0
   BonusHealth: 0
   BonusRegen: 0
@@ -210,6 +216,7 @@ Transform:
   m_Children:
   - {fileID: 2817645765857466729}
   - {fileID: 8964673441451465563}
+  - {fileID: 5775142116367001988}
   m_Father: {fileID: 6117498636229962574}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2805967643132447675
@@ -325,6 +332,8 @@ MonoBehaviour:
   EqTooltip: Lower Body
   DamageMultiplier: 0
   SpeedMultiplier: 0
+  CritChance: 0
+  RangeMultiplier: 0
   Armor: 8
   BonusHealth: 5
   BonusRegen: 0.1
@@ -411,7 +420,7 @@ GameObject:
   - component: {fileID: 8964673441451465563}
   - component: {fileID: 2725733426390625057}
   m_Layer: 0
-  m_Name: Stone Sword
+  m_Name: Stone Knife
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -445,17 +454,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   eqType: 0
-  EqSprite: {fileID: 21300000, guid: dadaf0c0258d93d4baad94b52b68b6de, type: 3}
+  EqSprite: {fileID: 21300000, guid: b4bbfb4475e4ffd48897d238b15e6a38, type: 3}
   EqTooltip: Weapon
-  DamageMultiplier: 1.78
-  SpeedMultiplier: 1.18
+  DamageMultiplier: 1.67
+  SpeedMultiplier: 1.26
+  CritChance: 0
+  RangeMultiplier: 1
   Armor: 0
   BonusHealth: 0
   BonusRegen: 0
   lines: 2
   lineText:
-  - x1.78 Damage
-  - x1.18 Attack Rate
+  - x1.67 Damage
+  - x1.26 Attack Rate
   lineColor:
   - {r: 0.49019608, g: 0.98039216, b: 0.49019608, a: 1}
   - {r: 0.49019608, g: 0.98039216, b: 0.49019608, a: 1}
@@ -514,3 +525,69 @@ MonoBehaviour:
   - {fileID: 5653172384725562189}
   - {fileID: 1862879296027796967}
   - {fileID: 2725733426390625057}
+  - {fileID: 3435141720599097286}
+--- !u!1 &8037987658193614287
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5775142116367001988}
+  - component: {fileID: 3435141720599097286}
+  m_Layer: 0
+  m_Name: Stone Spear
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5775142116367001988
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8037987658193614287}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7690583210792356650}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3435141720599097286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8037987658193614287}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af6ecf1837cf2694492f1559f94d3008, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eqType: 5
+  EqSprite: {fileID: 21300000, guid: 8f3e46818b7d8d94eb24f55d68d30135, type: 3}
+  EqTooltip: Weapon
+  DamageMultiplier: 1.75
+  SpeedMultiplier: 1.09
+  CritChance: 0.14
+  RangeMultiplier: 1.4
+  Armor: 0
+  BonusHealth: 0
+  BonusRegen: 0
+  lines: 4
+  lineText:
+  - x1.75 Damage
+  - x1.09 Attack Rate
+  - +14% Crit Chance
+  - x1.4 Attack Range
+  lineColor:
+  - {r: 0.49019608, g: 0.98039216, b: 0.49019608, a: 1}
+  - {r: 0.49019608, g: 0.98039216, b: 0.49019608, a: 1}
+  - {r: 0.49019608, g: 0.98039216, b: 0.49019608, a: 1}
+  - {r: 0.49019608, g: 0.98039216, b: 0.49019608, a: 1}

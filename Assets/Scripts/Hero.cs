@@ -37,7 +37,7 @@ public class Hero : MonoBehaviour
     void Attack()
     {
         attackCharge -= 1f;
-        damage = Random.Range(attackDamage[0] + PlayerScript.minDamageBonus, attackDamage[1] + PlayerScript.maxDamageBonus);
+        damage = Random.Range(attackDamage[0], attackDamage[1]);
         if (critChance >= Random.Range(0f, 1f))
         {
             damage *= critDamage;

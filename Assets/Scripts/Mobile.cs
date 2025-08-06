@@ -121,8 +121,8 @@ public class Mobile : MonoBehaviour
         attackCharge -= 1f;
 
         damage = Random.Range(damageRange[0], damageRange[1] + 1);
-
-        PlayerScript.TakeDamage(damage);
+        if (!PlayerScript.Dodge())
+            PlayerScript.TakeDamage(damage);
     }
 
     void Wander()

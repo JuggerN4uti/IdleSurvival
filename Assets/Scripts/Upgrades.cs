@@ -9,8 +9,8 @@ public class Upgrades : MonoBehaviour
     public Player PlayerScript;
 
     [Header("Stats")]
+    public int totalUpgradesBought;
     public int[] upgradeCost, upgradesBought;
-    public float[] upgradeCostRise, upgradeCostIncrease;
 
     [Header("UI")]
     public Button[] UpgradeButton;
@@ -19,26 +19,21 @@ public class Upgrades : MonoBehaviour
     public void BuyUpgrade(int id)
     {
         PlayerScript.SpendGold(upgradeCost[id]);
-        upgradeCost[id] = Mathf.RoundToInt(upgradeCost[id] * upgradeCostRise[id] + upgradeCostIncrease[id]);
-        UpgradeCostText[id].text = upgradeCost[id].ToString("0");
+        totalUpgradesBought++;
         upgradesBought[id]++;
+        UpgradeEffectText[id].text = upgradesBought[id].ToString("0");
 
-        switch (id)
+        PlayerScript.GainAttribute(id, 1);
+
+        SetCosts();
+    }
+
+    void SetCosts()
+    {
+        for (int i = 0; i < upgradeCost.Length; i++)
         {
-            case 0:
-                //PlayerScript.damageIncrease += 0.01f;
-                PlayerScript.minDamageBonus += 0.9f;
-                PlayerScript.maxDamageBonus += 1.4f;
-                UpgradeEffectText[id].text = "+" + PlayerScript.minDamageBonus.ToString("0.0") + "-" + PlayerScript.maxDamageBonus.ToString("0.0");
-                break;
-            case 1:
-                PlayerScript.speedIncrease += 0.02f;
-                UpgradeEffectText[id].text = "+" + (upgradesBought[id] * 2).ToString("0") + "%";
-                break;
-            case 2:
-                PlayerScript.GainSP(1);
-                UpgradeEffectText[id].text = "+" + upgradesBought[id].ToString("0");
-                break;
+            upgradeCost[i] = 10 + totalUpgradesBought * 4 + upgradesBought[i] * (upgradesBought[i] + 8) / 2;
+            UpgradeCostText[i].text = upgradeCost[i].ToString("0");
         }
 
         Check();
