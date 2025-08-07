@@ -38,6 +38,8 @@ Transform:
   - {fileID: 4778725169368702334}
   - {fileID: 7656184892663553418}
   - {fileID: 7051694031900566189}
+  - {fileID: 4180349358051173716}
+  - {fileID: 7045506815629227288}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8378758645097856973
@@ -61,6 +63,8 @@ MonoBehaviour:
   - {fileID: 5520509242453991966}
   - {fileID: 798961586106531883}
   - {fileID: 246176028302187975}
+  - {fileID: 6513445834477878684}
+  - {fileID: 2025869176678361777}
 --- !u!1 &1726340049788994607
 GameObject:
   m_ObjectHideFlags: 0
@@ -432,6 +436,112 @@ MonoBehaviour:
   materialCount: 0300000003000000
   craftDuration: 15
   craftedXP: 8
+--- !u!1 &5927253334033677193
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7045506815629227288}
+  - component: {fileID: 2025869176678361777}
+  m_Layer: 0
+  m_Name: Stone Daggers  Recipe
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7045506815629227288
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5927253334033677193}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1438575868450093027}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2025869176678361777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5927253334033677193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 743a796cfc16eea478ff6e3245aa80c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eqItem: 1
+  craftedID: 7
+  craftedCount: 1
+  uniqueMaterials: 2
+  eqMaterial: 0100
+  materialID: 0400000008000000
+  materialCount: 0200000004000000
+  craftDuration: 50
+  craftedXP: 16
+--- !u!1 &6967124870832899596
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4180349358051173716}
+  - component: {fileID: 6513445834477878684}
+  m_Layer: 0
+  m_Name: Stone Hammer  Recipe
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4180349358051173716
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6967124870832899596}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1438575868450093027}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6513445834477878684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6967124870832899596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 743a796cfc16eea478ff6e3245aa80c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eqItem: 1
+  craftedID: 6
+  craftedCount: 1
+  uniqueMaterials: 3
+  eqMaterial: 010000
+  materialID: 000000000400000003000000
+  materialCount: 010000001800000004000000
+  craftDuration: 50
+  craftedXP: 16
 --- !u!1 &8544352632598987562
 GameObject:
   m_ObjectHideFlags: 0

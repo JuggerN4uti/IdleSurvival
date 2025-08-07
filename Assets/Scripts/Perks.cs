@@ -19,8 +19,8 @@ public class Perks : MonoBehaviour
     public TMPro.TextMeshProUGUI SPCountText;
 
     [Header("Passives - Warrior")]
-    public bool crushingBlow;
-    public bool DamageFromRegen;
+    public bool rage;
+    public bool crushingBlow, DamageFromRegen;
 
     public void ChooseClass(int id) // 0 - Warrior
     {
@@ -28,8 +28,8 @@ public class Perks : MonoBehaviour
         switch (id)
         {
             case 0:
-                PlayerScript.GainHP(40);
-                PlayerScript.damageIncrease += 0.02f;
+                rage = true;
+                PlayerScript.UnlockRage();
                 break;
         }
         ClassSelectScreen.SetActive(false);
@@ -62,8 +62,11 @@ public class Perks : MonoBehaviour
                 PlayerScript.attackDamage[1] += PlayerScript.regeneration;
                 break;
             case (0, 5):
-                PlayerScript.damageIncrease += 0.012f;
-                PlayerScript.lifeSteal += 0.012f;
+                PlayerScript.GainAttribute(2, 2);
+                PlayerScript.maxRage += 40f;
+                PlayerScript.GainRage(0f);
+                //PlayerScript.damageIncrease += 0.012f;
+                //PlayerScript.lifeSteal += 0.012f;
                 break;
         }
 

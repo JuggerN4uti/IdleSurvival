@@ -29,7 +29,7 @@ public class Storage : MonoBehaviour
     [Header("Equipment")]
     public bool[] gearEquiped;
     public int[] gearWornID;
-    public int eqSlot, eqUnequipped;
+    public int eqSlot, eqUnequipped, equipped;
 
     public void CollectItem(int itemID, int amount)
     {
@@ -142,12 +142,13 @@ public class Storage : MonoBehaviour
         eqSlot = ELib.EqItems[eqID[slot]].eqType;
         if (gearEquiped[eqSlot])
         {
+            equipped = eqID[slot];
             eqUnequipped = gearWornID[eqSlot];
-            gearWornID[eqSlot] = eqID[slot];
-            eqCount[eqID[slot]]--;
+            gearWornID[eqSlot] = equipped;
+            eqCount[equipped]--;
             CollectEq(eqUnequipped, 1, false);
             LoseStats(eqUnequipped);
-            GainStats(eqID[slot]);
+            GainStats(equipped);
         }
         else
         {
@@ -184,6 +185,10 @@ public class Storage : MonoBehaviour
 
     void GainStats(int eqID)
     {
+        for (int i = 0; i < 5; i++)
+        {
+            PlayerScript.GainAttribute(i, ELib.EqItems[eqID].attributeBonus[i]);
+        }
         if (ELib.EqItems[eqID].eqType == 0)
         {
             PlayerScript.weaponDamage = ELib.EqItems[eqID].DamageMultiplier;
@@ -205,6 +210,10 @@ public class Storage : MonoBehaviour
 
     void LoseStats(int eqID)
     {
+        for (int i = 0; i < 5; i++)
+        {
+            PlayerScript.LoseAttribute(i, ELib.EqItems[eqID].attributeBonus[i]);
+        }
         if (ELib.EqItems[eqID].eqType == 0)
         {
             PlayerScript.weaponDamage = 1.0f;

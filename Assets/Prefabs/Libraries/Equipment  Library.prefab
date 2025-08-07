@@ -54,6 +54,7 @@ MonoBehaviour:
   Armor: 7
   BonusHealth: 15
   BonusRegen: 0
+  attributeBonus: 0000000000000000000000000000000000000000
   lines: 2
   lineText:
   - 7 Armor
@@ -115,6 +116,7 @@ MonoBehaviour:
   Armor: 10
   BonusHealth: 30
   BonusRegen: 0.1
+  attributeBonus: 0000000000000000000000000000000000000000
   lines: 3
   lineText:
   - 10 Armor
@@ -178,6 +180,7 @@ MonoBehaviour:
   Armor: 0
   BonusHealth: 0
   BonusRegen: 0
+  attributeBonus: 0000000000000000000000000000000000000000
   lines: 2
   lineText:
   - x1.44 Damage
@@ -217,6 +220,8 @@ Transform:
   - {fileID: 2817645765857466729}
   - {fileID: 8964673441451465563}
   - {fileID: 5775142116367001988}
+  - {fileID: 2911882126427400879}
+  - {fileID: 4880939800644854566}
   m_Father: {fileID: 6117498636229962574}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2805967643132447675
@@ -337,6 +342,7 @@ MonoBehaviour:
   Armor: 8
   BonusHealth: 5
   BonusRegen: 0.1
+  attributeBonus: 0000000000000000000000000000000000000000
   lines: 3
   lineText:
   - 8 Armor
@@ -345,6 +351,70 @@ MonoBehaviour:
   lineColor:
   - {r: 0.49019608, g: 0.98039216, b: 0.49019608, a: 1}
   - {r: 0.49019608, g: 0.98039216, b: 0.49019608, a: 1}
+  - {r: 0.49019608, g: 0.98039216, b: 0.49019608, a: 1}
+--- !u!1 &4388842963922399002
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2911882126427400879}
+  - component: {fileID: 4863345943752285652}
+  m_Layer: 0
+  m_Name: Stone Hammer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2911882126427400879
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4388842963922399002}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7690583210792356650}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4863345943752285652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4388842963922399002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af6ecf1837cf2694492f1559f94d3008, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eqType: 0
+  EqSprite: {fileID: 21300000, guid: db8a911aac1100d449586b85070b758f, type: 3}
+  EqTooltip: Weapon
+  DamageMultiplier: 2.7
+  SpeedMultiplier: 0.86
+  CritChance: 0
+  RangeMultiplier: 1
+  Armor: 0
+  BonusHealth: 0
+  BonusRegen: 0
+  attributeBonus: 0000000002000000000000000000000000000000
+  lines: 3
+  lineText:
+  - x2.7 Damage
+  - x0.86 Attack Rate
+  - +2 Strength
+  lineColor:
+  - {r: 0.49019608, g: 0.98039216, b: 0.49019608, a: 1}
+  - {r: 0.98039216, g: 0.49019608, b: 0.49019608, a: 1}
   - {r: 0.49019608, g: 0.98039216, b: 0.49019608, a: 1}
 --- !u!1 &4826441317997674299
 GameObject:
@@ -378,6 +448,70 @@ Transform:
   - {fileID: 6948625262605645949}
   m_Father: {fileID: 6117498636229962574}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5073766360717765324
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4880939800644854566}
+  - component: {fileID: 6989165039073032331}
+  m_Layer: 0
+  m_Name: Stone Daggers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4880939800644854566
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5073766360717765324}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7690583210792356650}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6989165039073032331
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5073766360717765324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af6ecf1837cf2694492f1559f94d3008, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eqType: 0
+  EqSprite: {fileID: 21300000, guid: 30eeb6e664ce99a49aef04008906aa66, type: 3}
+  EqTooltip: Weapon
+  DamageMultiplier: 1.01
+  SpeedMultiplier: 2.28
+  CritChance: 0
+  RangeMultiplier: 1
+  Armor: 0
+  BonusHealth: 0
+  BonusRegen: 0
+  attributeBonus: 0000000000000000020000000000000000000000
+  lines: 3
+  lineText:
+  - x1.01 Damage
+  - x2.28 Attack Rate
+  - +2 Dexterity
+  lineColor:
+  - {r: 0.49019608, g: 0.98039216, b: 0.49019608, a: 1}
+  - {r: 0.4901961, g: 0.9803922, b: 0.4901961, a: 1}
+  - {r: 0.49019608, g: 0.98039216, b: 0.49019608, a: 1}
 --- !u!1 &5988853148553865327
 GameObject:
   m_ObjectHideFlags: 0
@@ -463,6 +597,7 @@ MonoBehaviour:
   Armor: 0
   BonusHealth: 0
   BonusRegen: 0
+  attributeBonus: 0000000000000000000000000000000000000000
   lines: 2
   lineText:
   - x1.67 Damage
@@ -526,6 +661,8 @@ MonoBehaviour:
   - {fileID: 1862879296027796967}
   - {fileID: 2725733426390625057}
   - {fileID: 3435141720599097286}
+  - {fileID: 4863345943752285652}
+  - {fileID: 6989165039073032331}
 --- !u!1 &8037987658193614287
 GameObject:
   m_ObjectHideFlags: 0
@@ -570,7 +707,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af6ecf1837cf2694492f1559f94d3008, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eqType: 5
+  eqType: 0
   EqSprite: {fileID: 21300000, guid: 8f3e46818b7d8d94eb24f55d68d30135, type: 3}
   EqTooltip: Weapon
   DamageMultiplier: 1.75
@@ -580,6 +717,7 @@ MonoBehaviour:
   Armor: 0
   BonusHealth: 0
   BonusRegen: 0
+  attributeBonus: 0000000000000000000000000000000000000000
   lines: 4
   lineText:
   - x1.75 Damage

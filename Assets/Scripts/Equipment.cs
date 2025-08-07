@@ -18,6 +18,9 @@ public class Equipment : MonoBehaviour
     public int BonusHealth;
     public float BonusRegen;
 
+    [Header("Attributes")]
+    public int[] attributeBonus;
+
     [Header("Tooltip")]
     public int lines;
     public string[] lineText;

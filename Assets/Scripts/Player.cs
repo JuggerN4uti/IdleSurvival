@@ -38,7 +38,7 @@ public class Player : MonoBehaviour
     public bool collecting, automation;
     public int island;
     public int task, auto; // 0 - woodcutting,
-    public float taskProgress;
+    public float taskProgress, inCombat;
     public float[] collectingSpeed;
     public GameObject[] TaskScreens;
     public GameObject FinderPrefab;
@@ -80,6 +80,11 @@ public class Player : MonoBehaviour
     public GameObject WorldScreenObject;
     public GameObject[] WindowObject;
     public bool[] windowOpened;
+
+    [Header("Warrior")]
+    public GameObject RageBarObject;
+    public Image RageBarFill;
+    public float rage, maxRage;
 
     [Header("Bonus")]
     public bool bonusActive;
@@ -145,6 +150,21 @@ public class Player : MonoBehaviour
                 transform.position = Vector2.MoveTowards(transform.position, movePos, movementSpeed * Time.deltaTime);
             else moving = false;
         }
+
+        if (inCombat > 0f)
+        {
+            inCombat -= Time.deltaTime;
+        }
+        else
+        {
+            if (PerksScript.rage && rage > 0f)
+            {
+                rage -= 5 * Time.deltaTime;
+                if (rage < 0f)
+                    rage = 0f;
+                RageBarFill.fillAmount = rage / 100f;
+            }
+        }
         /*move = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         if (move[0] != 0 || move[1] != 0)
         {
@@ -155,6 +175,7 @@ public class Player : MonoBehaviour
 
     void Attack()
     {
+        inCombat = 8f;
         attackCharge -= 1f;
         moving = false;
         movePos = transform.position;
@@ -162,6 +183,7 @@ public class Player : MonoBehaviour
         damage = Random.Range(attackDamage[0], attackDamage[1]);
         damage *= damageIncrease;
         damage *= weaponDamage;
+        damage *= 1f + rage * 0.001f;
         if (PerksScript.crushingBlow)
         {
             damage *= 1.42f;
@@ -179,6 +201,11 @@ public class Player : MonoBehaviour
         tempi = Mathf.RoundToInt(damage * lifeSteal);
         if (tempi > 0)
             RestoreHealth(tempi);
+
+        if (PerksScript.rage)
+        {
+            GainRage(6f / weaponRate);
+        }
     }
 
     void DoTask()
@@ -309,6 +336,37 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void LoseAttribute(int id, int amount)
+    {
+        switch (id)
+        {
+            case 0:
+                vitality -= amount;
+                LoseHP(20 * amount);
+                LoseRegen(0.1f * amount);
+                break;
+            case 1:
+                strength -= amount;
+                attackDamage[0] -= amount;
+                attackDamage[1] -= amount;
+                break;
+            case 2:
+                dexterity -= amount;
+                attackRate -= 0.005f * amount;
+                dodgeChance -= 0.01f * amount;
+                break;
+            case 3:
+                resilience -= amount;
+                armor -= 2 * amount;
+                break;
+            case 4:
+                luck -= amount;
+                critChance -= 0.01f * amount;
+                critDamage -= 0.01f * amount;
+                break;
+        }
+    }
+
     public void GainSP(int amount)
     {
         skillPoints += amount;
@@ -333,16 +391,6 @@ public class Player : MonoBehaviour
         HealthText.text = health.ToString("0") + "/" + maxHealth.ToString("0");
     }
 
-    public void GainRegen(float amount)
-    {
-        regeneration += amount;
-        if (PerksScript.DamageFromRegen)
-        {
-            attackDamage[0] += amount;
-            attackDamage[1] += amount;
-        }
-    }
-
     public void LoseHP(int amount)
     {
         maxHealth -= amount;
@@ -353,6 +401,26 @@ public class Player : MonoBehaviour
 
         HealthBarFill.fillAmount = HealthPercent();
         HealthText.text = health.ToString("0") + "/" + maxHealth.ToString("0");
+    }
+
+    public void GainRegen(float amount)
+    {
+        regeneration += amount;
+        if (PerksScript.DamageFromRegen)
+        {
+            attackDamage[0] += amount;
+            attackDamage[1] += amount;
+        }
+    }
+
+    public void LoseRegen(float amount)
+    {
+        regeneration -= amount;
+        if (PerksScript.DamageFromRegen)
+        {
+            attackDamage[0] -= amount;
+            attackDamage[1] -= amount;
+        }
     }
 
     public int CalculateExpReq(int level)
@@ -369,6 +437,7 @@ public class Player : MonoBehaviour
 
     public void TakeDamage(int amount)
     {
+        inCombat = 8f;
         taken = Mathf.RoundToInt(amount / (1f + armor * 0.01f));
         health -= taken;
         if (health <= 0)
@@ -387,6 +456,14 @@ public class Player : MonoBehaviour
 
         HealthBarFill.fillAmount = HealthPercent();
         HealthText.text = health.ToString("0") + "/" + maxHealth.ToString("0");
+    }
+
+    public void GainRage(float amount)
+    {
+        rage += amount;
+        if (rage > maxRage)
+            rage = maxRage;
+        RageBarFill.fillAmount = rage / maxRage;
     }
 
     public void SelectScreen(int which)
@@ -443,7 +520,7 @@ public class Player : MonoBehaviour
             {
                 AutomationImage[auto].color = new Color(0f, 0f, 0f, 0.49f);
                 auto = autoID;
-                AutomationImage[auto].color = new Color(0f, 0f, 0.49f, 0.49f);
+                AutomationImage[auto].color = new Color(0.18f, 0.18f, 0.57f, 0.57f);
                 if (auto == 0)
                     AutoCombat();
                 else AutoCollect();
@@ -453,7 +530,7 @@ public class Player : MonoBehaviour
         {
             automation = true;
             auto = autoID;
-            AutomationImage[auto].color = new Color(0f, 0f, 0.49f, 0.49f);
+            AutomationImage[auto].color = new Color(0.18f, 0.18f, 0.57f, 0.57f);
             if (auto == 0)
                 AutoCombat();
             else AutoCollect();
@@ -528,6 +605,12 @@ public class Player : MonoBehaviour
             }
             Invoke("AutoCollect", 2f);
         }
+    }
+
+    public void UnlockRage()
+    {
+        RageBarObject.SetActive(true);
+        RageBarFill.fillAmount = 0f;
     }
 
     float HealthPercent()
