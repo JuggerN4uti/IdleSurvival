@@ -126,7 +126,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4013012060160279915, guid: 05e00ffe2f0398b459d3f1b2ce16cdc8, type: 3}
       propertyPath: m_Name
-      value: Boulder
+      value: Boulderer
       objectReference: {fileID: 0}
     - target: {fileID: 7358073832969244079, guid: 05e00ffe2f0398b459d3f1b2ce16cdc8, type: 3}
       propertyPath: m_SortingOrder

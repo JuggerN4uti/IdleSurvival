@@ -211,6 +211,7 @@ public class Mobile : MonoBehaviour
                 IslandScript.MobSlained();
             PlayerScript.GainXP(Random.Range(expRange[0], expRange[1] + 1));
             PlayerScript.GainGold(Random.Range(goldRange[0], goldRange[1] + 1));
+            PlayerScript.MilestonesScript.ProgressMilestone(1, 1);
             Drops();
         }
         //CombatScript.MobSlained();

@@ -84,7 +84,7 @@ public class Player : MonoBehaviour
     [Header("Warrior")]
     public GameObject RageBarObject;
     public Image RageBarFill;
-    public float rage, maxRage;
+    public float rage, maxRage, attackRage, critRage;
 
     [Header("Bonus")]
     public bool bonusActive;
@@ -126,7 +126,7 @@ public class Player : MonoBehaviour
                 transform.position = Vector2.MoveTowards(transform.position, MobileTargeted.transform.position, movementSpeed * Time.deltaTime);
             else
             {
-                attackCharge += attackRate * Time.deltaTime * speedIncrease * weaponRate;
+                attackCharge += Time.deltaTime * AttackRate();
                 if (attackCharge >= 1f)
                     Attack();
                 //AttackBarFill.fillAmount = attackCharge / 1f;
@@ -159,10 +159,10 @@ public class Player : MonoBehaviour
         {
             if (PerksScript.rage && rage > 0f)
             {
-                rage -= 5 * Time.deltaTime;
+                rage -= maxRage * 0.05f * Time.deltaTime;
                 if (rage < 0f)
                     rage = 0f;
-                RageBarFill.fillAmount = rage / 100f;
+                RageBarFill.fillAmount = rage / maxRage;
             }
         }
         /*move = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
@@ -204,7 +204,9 @@ public class Player : MonoBehaviour
 
         if (PerksScript.rage)
         {
-            GainRage(6f / weaponRate);
+            if (crited)
+                GainRage(8f / (0.2f + weaponRate));
+            else GainRage(6f / (0.2f + weaponRate));
         }
     }
 
@@ -313,11 +315,18 @@ public class Player : MonoBehaviour
                 vitality += amount;
                 GainHP(20 * amount);
                 GainRegen(0.1f * amount);
+                if (PerksScript.GolemRage)
+                {
+                    maxRage += 2f * amount;
+                    GainRage(0f);
+                }
                 break;
             case 1:
                 strength += amount;
                 attackDamage[0] += amount;
                 attackDamage[1] += amount;
+                if (PerksScript.DamageFromStrength)
+                    damageIncrease += 0.0015f * amount;
                 break;
             case 2:
                 dexterity += amount;
@@ -344,11 +353,18 @@ public class Player : MonoBehaviour
                 vitality -= amount;
                 LoseHP(20 * amount);
                 LoseRegen(0.1f * amount);
+                if (PerksScript.GolemRage)
+                {
+                    maxRage -= 2f * amount;
+                    GainRage(0f);
+                }
                 break;
             case 1:
                 strength -= amount;
                 attackDamage[0] -= amount;
                 attackDamage[1] -= amount;
+                if (PerksScript.DamageFromStrength)
+                    damageIncrease -= 0.0015f * amount;
                 break;
             case 2:
                 dexterity -= amount;
@@ -446,6 +462,8 @@ public class Player : MonoBehaviour
         }
         HealthBarFill.fillAmount = HealthPercent();
         HealthText.text = health.ToString("0") + "/" + maxHealth.ToString("0");
+        if (PerksScript.GolemRage)
+            GainRage(2f);
     }
 
     public void RestoreHealth(int amount)
@@ -502,6 +520,9 @@ public class Player : MonoBehaviour
                     break;
                 case 5:
                     SmeltingScript.DisplayStorage();
+                    break;
+                case 6:
+                    MilestonesScript.DisplayWindow();
                     break;
             }
         }
@@ -616,6 +637,13 @@ public class Player : MonoBehaviour
     float HealthPercent()
     {
         return (health * 1f) / (maxHealth * 1f);
+    }
+
+    float AttackRate()
+    {
+        if (PerksScript.rageRate)
+            return attackRate * speedIncrease * weaponRate * (1f + rage * 0.0003f);
+        return attackRate * speedIncrease * weaponRate;
     }
 
     float CritChance()
